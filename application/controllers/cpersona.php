@@ -12,27 +12,65 @@ class Cpersona extends CI_Controller
 
     public function index()
     {
-        $this->load->view('vpersona');
+        $data['mensaje'] = "";
+        $this->load->view('personas/vingreso', $data);
     }
 
-    public function cGuardarPersona()
+    public function registrarUsuario()
     {
         $parametros['nombres'] = $this->input->post('nombres');
         $parametros['apellidos'] = $this->input->post('apellidos');
         $parametros['documento'] = $this->input->post('documento');
         $parametros['fechanacimiento'] = $this->input->post('fechanacimiento');
         $parametros['usuario'] = $this->input->post('usuario');
-        $parametros['clave'] = $this->input->post('clave');
+        $parametros['clave'] = sha1($this->input->post('clave'));
         $parametros['direccion'] = $this->input->post('direccion');
         $parametros['correo'] = $this->input->post('correo');
         $parametros['telefono'] = $this->input->post('telefono');
 
-        $idPersona = $this->mpersona->mGuardarPersona($parametros);
+        $idPersona = $this->mpersona->registrarUsuario($parametros);
 
         if ($idPersona > 0) {
 
             $parametros['personas_id'] = $idPersona;
-            $this->mpersona->mGuardarContacto($parametros);
+            $this->mpersona->guardarDatosContacto($parametros);
+        }
+    }
+
+    public function formularioIngreso()
+    {
+        $data['mensaje'] = "";
+        $this->load->view('personas/vingreso', $data);
+    }
+
+    public function formularioRegistro()
+    {
+        $this->load->view('personas/vregistro');
+    }
+
+    public function inicio()
+    {
+        $this->load->view('plantilla/cabecera');
+        $this->load->view('plantilla/menu');
+        $this->load->view('vinicio');
+        $this->load->view('plantilla/pie');
+    }
+
+    public function iniciarSesion()
+    {
+        $usuario = $this->input->post('usuario');
+        $clave = sha1($this->input->post('clave'));
+
+        $res = $this->mpersona->iniciarSesion($usuario, $clave);
+
+        if ($res == 0) {
+            echo json_encode(array(
+                "status" => 404
+            ));
+        } else if ($res == 1) {
+            echo json_encode(array(
+                "status" => 200
+            ));
         }
     }
 }
