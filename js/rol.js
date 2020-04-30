@@ -36,16 +36,47 @@ _rol = (function () {
             success: function (request, textStatus, jQxhr) {
                 var data = JSON.parse(request);
                 if (data.status == 200) {
-                    data.data.forEach(function (element) {
-                        $('#tblRoles tbody').append(`
-                        <tr>
-                            <td>`+ element.id + `</td>
-                            <td>`+ element.rol + `</td>
-                            <td>
-                            <i class="fas fa-edit mr-4 text-success"></i>
-                            </td>
-                        </tr>
-                        `);
+
+                    var rolesActivos = Array();
+                    var rolesInactivos = Array();
+                    var cont = 0;
+
+                    data.data.forEach(function (element, index) {
+                        debugger;
+                        if (element.estado == 0) {
+                            rolesInactivos[index - cont] = element;
+                        } else {
+                            rolesActivos[index] = element;
+                            cont = cont + 1;
+                        }
+                    });
+                    $('#tblRolesActivos').dataTable({
+                        data: rolesActivos,
+                        columns: [
+                            { "data": "id" },
+                            { "data": "rol" },
+                            {
+                                data: 'id',
+                                render: function (data) {
+                                    return '<td><i class="fas fa-edit mr-4 text-success"></i></td>'
+                                }
+                            },
+                        ],
+                    });
+
+                    $('#tblRolesInactivos').dataTable({
+                        data: rolesInactivos,
+                        columns: [
+                            { "data": "id" },
+                            { "data": "rol" },
+                            {
+                                data: 'id',
+                                render: function (data) {
+                                    return '<td><i class="fas fa-edit mr-4 text-success"></i></td>'
+                                }
+                            },
+
+                        ],
                     });
                 }
             },

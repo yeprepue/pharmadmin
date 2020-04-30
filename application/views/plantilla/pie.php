@@ -49,4 +49,8 @@
 <!-- Roles -->
 <script src="<?php echo base_url(); ?>js/rol.js"></script>
 
+<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/plugins/DataTablesB4/datatables.min.css" />
+
+<script type="text/javascript" src="<?php echo base_url(); ?>assets/plugins/DataTablesB4/datatables.min.js"></script>
+
 </html>
