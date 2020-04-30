@@ -3,23 +3,27 @@ _persona = (function () {
 
         let url = location.protocol + "//" + location.host + '/pharmadmin/';
 
-        var usuario = $('#usuario').val();
-        var clave = $('#clave').val();
+        // var usuario = $('#usuario').val();
+        // var clave = $('#clave').val();
+
+        var formulario = $('#formIngreso').serialize();
+
+        console.log(formulario);
 
         $.ajax({
             url: url + 'cpersona/iniciarSesion',
-            // dataType: 'json',
             type: 'post',
-            data: {
-                usuario: usuario,
-                clave: clave
-            },
+            data: formulario,
             cache: false,
-            success: function (data, textStatus, jQxhr) {
-                var data = JSON.parse(data);
-                debugger;
+            success: function (request, textStatus, jQxhr) {
+                var data = JSON.parse(request);
                 if (data.status == 200) {
-                    location.href = url + 'cpersona/inicio';
+                    if (data.data.roles_id == 1) {
+                        location.href = url + 'cpersona/inicio';
+                    } else if (data.data.roles_id == 2) {
+                        location.href = url + 'cpersona/inicio2';
+                    }
+
                 } else {
                     $('#msjerror').show();
                     setTimeout(() => {

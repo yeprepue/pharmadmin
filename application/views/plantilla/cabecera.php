@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 3 | Dashboard</title>
+  <title>PharmAdmin</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Font Awesome -->
@@ -40,10 +40,10 @@
           <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-          <a href="index3.html" class="nav-link">Home</a>
+          <a href="<?php echo base_url(); ?>cpersona/inicio" class="nav-link">Inicio</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-          <a href="#" class="nav-link">Contact</a>
+          <a href="#" class="nav-link">Contacto</a>
         </li>
       </ul>
 
@@ -134,11 +134,25 @@
             <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
           </div>
         </li>
-        <li class="nav-item">
+        <!-- Cerrar sesión -->
+        <li class="nav-item dropdown">
+          <a class="nav-link" data-toggle="dropdown" href="#">
+            <i class="fas fa-power-off text-danger"></i>
+            <!-- <span class="badge badge-warning navbar-badge">15</span> -->
+          </a>
+          <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+            <div class="dropdown-divider"></div>
+            <a href="<?php echo base_url(); ?>cpersona/cerrarSesion" class="dropdown-item c-sesion">
+              <i class="fas fa-power-off mr-2 text-danger" style="cursor: pointer"></i> <span style="cursor: pointer"> Cerrar sesión</span>
+              <!-- <span class="float-right text-muted text-sm">3 mins</span> -->
+            </a>
+        </li>
+
+        <!-- <li class="nav-item">
           <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#">
             <i class="fas fa-th-large"></i>
           </a>
-        </li>
+        </li> -->
       </ul>
     </nav>
     <!-- /.navbar -->

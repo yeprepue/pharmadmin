@@ -7,23 +7,48 @@ class Crol extends CI_Controller
     {
         parent::__construct();
         $this->load->model('mrol');
-        // $this->load->library('encrypt');
     }
 
     public function index()
     {
-        $this->load->view('vrol');
+        if ($this->session->userdata('sUsuario')) {
+            $this->load->view('plantilla/cabecera');
+            $this->load->view('plantilla/menu');
+            $this->load->view('vrol');
+            $this->load->view('plantilla/pie');
+        } else {
+            $this->load->view('personas/vingreso');
+        }
     }
 
-    public function cGuardar()
+    public function registrarRol()
     {
-        $parametros['rol'] = $this->input->post('rol');
-        //Encriptar
-        // $parametros['rol'] = $this->encrypt->sha1($this->input->post('rol'));
-        // $idRol = $this->mrol->mGuardar($parametros);
+        $rol = $this->input->post('rol');
+        $res = $this->mrol->registrarRol($rol);
+        if ($res) {
+            echo json_encode(array(
+                "status" => 200,
+                "msj" => "Registrado correctamente"
+            ));
+        } else {
+            echo json_encode(array(
+                "status" => 404
+            ));
+        }
+    }
 
-        // if ($idRol > 0) {
-        //Poner la otra función
-        // }
+    public function consultarRoles()
+    {
+        $res = $this->mrol->consultarRoles();
+        if ($res) {
+            echo json_encode(array(
+                "status" => 200,
+                "data" => $res
+            ));
+        } else {
+            echo json_encode(array(
+                "status" => 404
+            ));
+        }
     }
 }

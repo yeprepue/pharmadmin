@@ -46,5 +46,7 @@
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo base_url(); ?>assets/dist/js/demo.js"></script>
 </body>
+<!-- Roles -->
+<script src="<?php echo base_url(); ?>js/rol.js"></script>
 
 </html>

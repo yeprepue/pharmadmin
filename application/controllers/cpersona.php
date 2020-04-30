@@ -50,10 +50,14 @@ class Cpersona extends CI_Controller
 
     public function inicio()
     {
-        $this->load->view('plantilla/cabecera');
-        $this->load->view('plantilla/menu');
-        $this->load->view('vinicio');
-        $this->load->view('plantilla/pie');
+        if ($this->session->userdata('sUsuario')) {
+            $this->load->view('plantilla/cabecera');
+            $this->load->view('plantilla/menu');
+            $this->load->view('vinicio');
+            $this->load->view('plantilla/pie');
+        } else {
+            $this->load->view('personas/vingreso');
+        }
     }
 
     public function iniciarSesion()
@@ -63,14 +67,39 @@ class Cpersona extends CI_Controller
 
         $res = $this->mpersona->iniciarSesion($usuario, $clave);
 
-        if ($res == 0) {
+        if ($res) {
+            $this->crearSesion($res);
+            echo json_encode(array(
+                "status" => 200,
+                "data" => $res
+            ));
+        } else {
             echo json_encode(array(
                 "status" => 404
             ));
-        } else if ($res == 1) {
-            echo json_encode(array(
-                "status" => 200
-            ));
         }
+    }
+
+    public function cerrarSesion()
+    {
+        $usuarioSession = array(
+            'sIdusuario' => false,
+            'sUsuario' => false,
+            'sNombre' => false,
+            'sRol' => false
+        );
+        $this->session->set_userdata($usuarioSession);
+        $this->load->view('personas/vingreso');
+    }
+
+    function crearSesion($res)
+    {
+        $usuarioSession = array(
+            'sIdusuario' => $res->id,
+            'sUsuario' => $res->usuario,
+            'sNombre' => $res->nombres,
+            'sRol' => $res->roles_id
+        );
+        $this->session->set_userdata($usuarioSession);
     }
 }

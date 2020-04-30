@@ -30,7 +30,7 @@
       <div class="card-body login-card-body">
         <p class="login-box-msg">Iniciar sesión</p>
 
-        <form action="<?php echo base_url(); ?>cpersona/iniciarSesion" method="post">
+        <form id="formIngreso">
           <div class="input-group mb-3">
             <input type="text" class="form-control" id="usuario" name="usuario" placeholder="Usuario">
             <div class="input-group-append">
@@ -62,7 +62,7 @@
             </div>
             <div class="col-12 mt-4">
               <div class="form-group">
-                <label id="msjerror" class="text-danger">* Usuario o contraseña incorrecta</label>
+                <label id="msjerror" class="text-danger" style="display: none">* Usuario o contraseña incorrecta</label>
               </div>
             </div>
             <!-- /.col -->

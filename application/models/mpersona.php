@@ -37,7 +37,7 @@ class Mpersona extends CI_Model
 
     public function iniciarSesion($usuario, $clave)
     {
-        $this->db->select('id, usuario, nombres, apellidos');
+        $this->db->select('id, usuario, nombres, apellidos, roles_id');
         $this->db->from('personas');
         $this->db->where('usuario', $usuario);
         $this->db->where('clave', $clave);
@@ -45,22 +45,9 @@ class Mpersona extends CI_Model
         $res = $this->db->get();
 
         if ($res->num_rows() > 0) {
-            $fila = $res->row();
-            $this->crearSesion($fila);
-            return 1;
-        } else {
-            return 0;
+            return $res->row();
+        }else{
+            return false;
         }
-        return $res->result();
-    }
-
-    function crearSesion($fila)
-    {
-        $usuarioSession = array(
-            'sIdusuario' => $fila->id,
-            'sUsuario' => $fila->usuario,
-            'sNombre' => $fila->nombres . ' ' . $fila->apellidos
-        );
-        $this->session->set_userdata($usuarioSession);
     }
 }

@@ -7,12 +7,30 @@ class Mrol extends CI_Model
         parent::__construct();
     }
 
-    public function mGuardar($parametros)
+    public function registrarRol($rol)
     {
         $datos = array(
-            'rol' => $parametros['rol']
+            'rol' => $rol
         );
-        $this->db->insert('roles',$datos);
-        // return $this->db->insert_id();
+        $this->db->insert('roles', $datos);
+        if ($this->db->affected_rows()) {
+            return $this->db->insert_id();
+        }
+        return false;
+    }
+
+    public function consultarRoles()
+    {
+        $this->db->select('*');
+        $this->db->from('roles');
+
+        $res = $this->db->get();
+
+        if ($res->num_rows() > 0) {
+            $result = $res->result();
+            return $result;
+        } else {
+            return false;
+        }
     }
 }
