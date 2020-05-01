@@ -18,6 +18,19 @@ class Mrol extends CI_Model
         }
         return false;
     }
+    public function actualizarRol($id, $rol)
+    {
+        $datos = array(
+            'rol' => $rol
+        );
+        $this->db->where('id', $id);
+        $this->db->update('roles', $datos);
+        if ($this->db->affected_rows()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     public function consultarRoles()
     {

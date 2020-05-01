@@ -3,7 +3,8 @@
         <div class="col-md-4 mt-4">
             <div class="card card-primary card-outline">
                 <div class="card-header text-center">
-                    <h3>Nuevo rol</h3>
+                    <h3 id="rRol">Nuevo rol</h3>
+                    <h3 id="aRol" style="display: none">Actualizar rol</h3>
                 </div>
                 <div class="card-body">
                     <form id="formRol">
@@ -12,13 +13,14 @@
                         </div>
                         <div class="form-group">
                             <button id="btnGuardarRol" type="button" class="btn btn-success btn-block">Guardar</button>
+                            <button id="btnActualizarRol" style="display: none" type="button" class="btn btn-success btn-block">Actualizar</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
         <div class="col-md-8 mt-4">
-            <div class="col-12 col-sm-6 col-lg-12">
+            <div class="col-12 col-sm-12 col-lg-12">
                 <div class="card card-primary card-outline card-tabs">
                     <div class="card-header p-0 pt-1 border-bottom-0">
                         <ul class="nav nav-tabs" id="custom-tabs-two-tab" role="tablist">
@@ -42,9 +44,9 @@
                                             <th scope="col">Acciones</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <!-- <tbody>
 
-                                    </tbody>
+                                    </tbody> -->
                                 </table>
                                 <!-- Fin tabla activos -->
                             </div>
@@ -62,6 +64,7 @@
                                     </tbody>
                                 </table>
                             </div>
+                            <input type="hidden" name="idrol" id="idrol">
                         </div>
                     </div>
                     <!-- /.card -->
