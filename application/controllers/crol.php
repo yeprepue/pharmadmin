@@ -25,8 +25,27 @@ class Crol extends CI_Controller
     {
         $id = $this->input->post('id');
         $rol = $this->input->post('rol');
+
         $res = $this->mrol->actualizarRol($id, $rol);
-        
+
+        if ($res) {
+            echo json_encode(array(
+                "status" => 200,
+                "msj" => "Actualizado correctamente"
+            ));
+        } else {
+            echo json_encode(array(
+                "status" => 404
+            ));
+        }
+    }
+
+    public function cambiarEstadoRol()
+    {
+        $id = $this->input->post('id');
+
+        $res = $this->mrol->cambiarEstadoRol($id);
+
         if ($res) {
             echo json_encode(array(
                 "status" => 200,

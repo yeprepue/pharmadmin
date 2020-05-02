@@ -1,4 +1,7 @@
 _rol = (function () {
+
+    var tblRolesActivos = "";
+    var tblRolesInactivos = "";
     var registrarRol = function () {
         let url = location.protocol + "//" + location.host + '/pharmadmin/';
 
@@ -18,6 +21,8 @@ _rol = (function () {
                         autoHideDelay: 3000
                     });
                     $("#rol").val("");
+
+                    consultarRoles(true);
                 }
             },
             error: function (jqXhr, textStatus, errorThrown) {
@@ -26,7 +31,53 @@ _rol = (function () {
         });
     }
 
-    var consultarRoles = function () {
+    function fxRolesActivos(rolesActivos, reload) {
+        if (reload) {
+            tblRolesActivos.fnDestroy();
+        }
+
+        tblRolesActivos = $('#tblRolesActivos').dataTable({
+            "pageLength": 5,
+            data: rolesActivos,
+            columns: [
+                { "data": "id" },
+                { "data": "rol" },
+                { "data": "estado", visible: false },
+                {
+                    data: 'id',
+                    render: function (data) {
+                        return `<button type="button" class="btn btn-info btn-editar">Editar</button>
+                        <button type="button" class="btn btn-danger btn-desactivar">Desactivar</button>`
+                    }
+                },
+            ],
+        });
+    }
+
+    function fxRolesInactivos(rolesInactivos, reload) {
+        if (reload) {
+            tblRolesInactivos.fnDestroy();
+        }
+        tblRolesInactivos = $('#tblRolesInactivos').dataTable({
+            "pageLength": 5,
+            data: rolesInactivos,
+            columns: [
+                { "data": "id" },
+                { "data": "rol" },
+                { "data": "estado", visible: false },
+                {
+                    data: 'id',
+                    render: function (data) {
+                        return `<button type="button" class="btn btn-info btn-editar">Editar</button>
+                        <button type="button" class="btn btn-success btn-desactivar">Activar</button>`
+                    }
+                },
+
+            ],
+        });
+    }
+
+    var consultarRoles = function (reload) {
         let url = location.protocol + "//" + location.host + '/pharmadmin/';
 
         $.ajax({
@@ -39,46 +90,20 @@ _rol = (function () {
 
                     var rolesActivos = Array();
                     var rolesInactivos = Array();
-                    var cont = 0;
+                    var conAct = 0;
+                    var conInac = 0;
 
                     data.data.forEach(function (element, index) {
                         if (element.estado == 0) {
-                            rolesInactivos[index - cont] = element;
+                            rolesInactivos[index - conAct] = element;
+                            conInac = conInac + 1;
                         } else {
-                            rolesActivos[index] = element;
-                            cont = cont + 1;
+                            rolesActivos[index - conInac] = element;
+                            conAct = conAct + 1;
                         }
                     });
-                    $('#tblRolesActivos').dataTable({
-                        // select: true,
-                        data: rolesActivos,
-                        columns: [
-                            { "data": "id" },
-                            { "data": "rol" },
-                            {
-                                data: 'id',
-                                render: function (data) {
-                                    return '<i class="fas fa-edit mr-4 text-success"></i>'
-                                }
-                            },
-                        ],
-                    });
-
-                    $('#tblRolesInactivos').dataTable({
-                        // select: true,
-                        data: rolesInactivos,
-                        columns: [
-                            { "data": "id" },
-                            { "data": "rol" },
-                            {
-                                data: 'id',
-                                render: function (data) {
-                                    return '<i class="fas fa-edit mr-4 text-success"></i>'
-                                }
-                            },
-
-                        ],
-                    });
+                    fxRolesActivos(rolesActivos, reload);
+                    fxRolesInactivos(rolesInactivos, reload);
                 }
             },
             error: function (jqXhr, textStatus, errorThrown) {
@@ -113,9 +138,35 @@ _rol = (function () {
                     $("#btnGuardarRol").show();
                     $("#btnActualizarRol").hide();
                     $("#idrol").val("");
-                    $("#tblRolesActivos tbody").remove();
+                    consultarRoles(true);
+                }
+            },
+            error: function (jqXhr, textStatus, errorThrown) {
+                console.log(errorThrown);
+            }
+        });
+    }
 
-                    consultarRoles();
+    var cambiarEstadoRol = function (idrol) {
+        let url = location.protocol + "//" + location.host + '/pharmadmin/';
+        var parametros = {
+            id: idrol
+        }
+        $.ajax({
+            url: url + 'crol/cambiarEstadoRol',
+            type: 'post',
+            data: parametros,
+            cache: false,
+            success: function (request, textStatus, jQxhr) {
+                var data = JSON.parse(request);
+                if (data.status == 200) {
+                    $.notify(data.msj, {
+                        className: 'success',
+                        globalPosition: 'top center',
+                        autoHideDelay: 3000
+                    });
+
+                    consultarRoles(true);
                 }
             },
             error: function (jqXhr, textStatus, errorThrown) {
@@ -127,23 +178,35 @@ _rol = (function () {
     return {
         registrarRol: registrarRol,
         consultarRoles: consultarRoles,
-        actualizarRol: actualizarRol
+        actualizarRol: actualizarRol,
+        cambiarEstadoRol: cambiarEstadoRol
     }
 })()
 
 $("#btnGuardarRol").off("click").on("click", function () {
-    _rol.registrarRol();
+    if ($("#rol").val() == "") {
+        alert("El campo rol no puede estar vacío");
+    } else {
+        _rol.registrarRol();
+    }
+
+
 })
 
 $("#btnActualizarRol").off("click").on("click", function () {
-    _rol.actualizarRol();
+    if ($("#rol").val() == "") {
+        alert("El campo rol no puede estar vacío");
+    } else {
+        _rol.actualizarRol();
+    }
+
 })
 
 $(document).ready(function () {
-    _rol.consultarRoles();
+    _rol.consultarRoles(false);
 });
 
-$(document).off("click", ".fa-edit").on("click", ".fa-edit", function () {
+$(document).off("click", ".btn-editar").on("click", ".btn-editar", function () {
     var info = Array();
     $(this).parents("tr").find("td").each(function (index) {
         info[index] = $(this).html();
@@ -155,5 +218,15 @@ $(document).off("click", ".fa-edit").on("click", ".fa-edit", function () {
     $("#rol").val(info[1]);
     $("#idrol").val(info[0]);
     $("#rol").focus();
+})
+
+
+$(document).off("click", ".btn-desactivar").on("click", ".btn-desactivar", function () {
+    var info = Array();
+    $(this).parents("tr").find("td").each(function (index) {
+        info[index] = $(this).html();
+    });
+
+    _rol.cambiarEstadoRol(info[0]);
 })
 
