@@ -3,8 +3,8 @@
         <div class="col-md-4 mt-4">
             <div class="card card-primary card-outline">
                 <div class="card-header text-center">
-                    <h3 id="rRol">Nuevo rol</h3>
-                    <h3 id="aRol" style="display: none">Actualizar rol</h3>
+                    <h3 id="rCategoria">Nuevo categoría</h3>
+                    <h3 id="aCategoria" style="display: none">Actualizar categoría</h3>
                 </div>
                 <div class="card-body">
                     <form id="formRol">
@@ -12,7 +12,7 @@
                             <input type="text" name="rol" id="rol" class="form-control" placeholder="Ingrese el nombre del rol">
                         </div>
                         <div id="divmsj-rol" class="form-group text-danger" style="display: none">
-                            <label id="lblRol">* Ingrese el nombre del rol</label>
+                            <label>* Ingrese el nombre del rol</label>
                         </div>
                         <div class="form-group">
                             <button id="btnGuardarRol" type="button" class="btn btn-success btn-block">Guardar</button>

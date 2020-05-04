@@ -14,7 +14,7 @@ class Mrol extends CI_Model
         );
         $this->db->insert('roles', $datos);
         if ($this->db->affected_rows()) {
-            return $this->db->insert_id();
+            return true;
         }
         return false;
     }

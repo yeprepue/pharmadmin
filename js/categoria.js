@@ -1,7 +1,9 @@
-_rol = (function () {
+_categoria = (function () {
 
     var tblRolesActivos = "";
     var tblRolesInactivos = "";
+
+
     var registrarRol = function () {
         let url = location.protocol + "//" + location.host + '/pharmadmin/';
         // http://localhost/pharmadmin/
@@ -191,7 +193,7 @@ $("#btnGuardarRol").off("click").on("click", function () {
             $("#divmsj-rol").hide();
         }, 3000);
     } else {
-        _rol.registrarRol();
+        _categoria.registrarRol();
     }
 })
 
@@ -202,12 +204,12 @@ $("#btnActualizarRol").off("click").on("click", function () {
             $("#divmsj-rol").hide();
         }, 3000);
     } else {
-        _rol.actualizarRol();
+        _categoria.actualizarRol();
     }
 })
 
 $(document).ready(function () {
-    _rol.consultarRoles(false);
+    _categoria.consultarRoles(false);
 });
 
 $(document).off("click", ".btn-editar").on("click", ".btn-editar", function () {
@@ -230,6 +232,6 @@ $(document).off("click", ".btn-desactivar").on("click", ".btn-desactivar", funct
     $(this).parents("tr").find("td").each(function (index) {
         info[index] = $(this).html();
     });
-    _rol.cambiarEstadoRol(info[0]);
+    _categoria.cambiarEstadoRol(info[0]);
 })
 
