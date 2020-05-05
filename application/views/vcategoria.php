@@ -22,7 +22,7 @@
                         </div>
                         <div class="form-group">
                             <button id="btnGuardarCategoria" type="button" class="btn btn-success btn-block">Guardar</button>
-                            <button id="actualizarCategoria" style="display: none" type="button" class="btn btn-success btn-block">Actualizar</button>
+                            <button id="btnActualizarCategoria" style="display: none" type="button" class="btn btn-success btn-block">Actualizar</button>
                         </div>
                     </form>
                 </div>

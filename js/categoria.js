@@ -124,8 +124,8 @@ _categoria = (function() {
                     $("#categoria").val("");
                     $("#registrarCategoria").show();
                     $("#actualizarCategoria").hide();
-                    $("#btnGuardarcategoria").show();
-                    $("#btnActualizarCategoria").hide();
+                    $("#btnGuardarcategoria").hide();
+                    $("#btnActualizarCategoria").show();
                     $("#id").val("");
                     consultarCategorias(true);
                 }
