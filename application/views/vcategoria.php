@@ -4,7 +4,7 @@
             <div class="card card-primary card-outline">
                 <div class="card-header text-center">
                     <h3 id="registrarCategoria">Nueva categoría</h3>
-                    <h3 id="aCategoria" style="display:none">Actualizar categoría</h3>
+                    <h3 id="actualizarCategoria" style="display:none">Actualizar categoría</h3>
                 </div>
                 <div class="card-body">
                     <form id="formCategoria">
@@ -22,7 +22,7 @@
                         </div>
                         <div class="form-group">
                             <button id="btnGuardarCategoria" type="button" class="btn btn-success btn-block">Guardar</button>
-                            <button id="btnActualizarCategoria" style="display: none" type="button" class="btn btn-success btn-block">Actualizar</button>
+                            <button id="actualizarCategoria" style="display: none" type="button" class="btn btn-success btn-block">Actualizar</button>
                         </div>
                     </form>
                 </div>

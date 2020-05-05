@@ -71,7 +71,6 @@ _categoria = (function() {
             ],
         });
     }
-
     var consultarCategorias = function(reload) {
         let url = location.protocol + "//" + location.host + '/pharmadmin/';
         $.ajax({
@@ -81,12 +80,10 @@ _categoria = (function() {
             success: function(request, textStatus, jQxhr) {
                 var data = JSON.parse(request);
                 if (data.status == 200) {
-
                     var categoriasActivas = Array();
                     var categoriasInactivas = Array();
                     var conAct = 0;
                     var conInac = 0;
-
                     data.data.forEach(function(element, index) {
                         if (element.estado == 0) {
                             categoriasInactivas[index - conAct] = element;
@@ -105,14 +102,12 @@ _categoria = (function() {
             }
         });
     }
-
     var actualizarCategoria = function() {
         let url = location.protocol + "//" + location.host + '/pharmadmin/';
         var parametros = {
-            id: $("#idcategoria").val(),
-            rol: $("#categoria").val()
+            id: $("#id").val(),
+            categoria: $("#categoria").val()
         }
-
         $.ajax({
             url: url + 'ccategoria/actualizarCategoria',
             type: 'post',
@@ -127,11 +122,11 @@ _categoria = (function() {
                         autoHideDelay: 3000
                     });
                     $("#categoria").val("");
-                    $("#rCategoria").show();
-                    $("#aCategoria").hide();
+                    $("#registrarCategoria").show();
+                    $("#actualizarCategoria").hide();
                     $("#btnGuardarcategoria").show();
-                    $("#btnactualizarCategoria").hide();
-                    $("#idcategoria").val("");
+                    $("#btnActualizarCategoria").hide();
+                    $("#id").val("");
                     consultarCategorias(true);
                 }
             },
@@ -140,14 +135,13 @@ _categoria = (function() {
             }
         });
     }
-
-    var cambiarEstadoCategoria = function(idcategoria) {
+    var cambiarEstadoCategoria = function(id) {
         let url = location.protocol + "//" + location.host + '/pharmadmin/';
         var parametros = {
-            id: idrol
+            id: id
         }
         $.ajax({
-            url: url + 'crol/cambiarEstadoRol',
+            url: url + 'ccategoria/cambiarEstadoCategoria',
             type: 'post',
             data: parametros,
             cache: false,
@@ -159,7 +153,6 @@ _categoria = (function() {
                         globalPosition: 'top center',
                         autoHideDelay: 3000
                     });
-
                     consultarCategorias(true);
                 }
             },
@@ -168,7 +161,6 @@ _categoria = (function() {
             }
         });
     }
-
     return {
         registrarCategoria: registrarCategoria,
         consultarCategorias: consultarCategorias,
@@ -176,7 +168,6 @@ _categoria = (function() {
         cambiarEstadoCategoria: cambiarEstadoCategoria
     }
 })()
-
 $("#btnGuardarCategoria").off("click").on("click", function() {
     if ($("#categoria").val() == "") {
         $("#divmsj-categoria").show();
@@ -187,7 +178,6 @@ $("#btnGuardarCategoria").off("click").on("click", function() {
         _categoria.registrarCategoria();
     }
 })
-
 $("#btnactualizarCategoria").off("click").on("click", function() {
     if ($("#categoria").val() == "") {
         $("#divmsj-categoria").show();
@@ -198,22 +188,20 @@ $("#btnactualizarCategoria").off("click").on("click", function() {
         _categoria.actualizarCategoria();
     }
 })
-
 $(document).ready(function() {
     _categoria.consultarCategorias(false);
 });
-
 $(document).off("click", ".btn-editar").on("click", ".btn-editar", function() {
     var info = Array();
     $(this).parents("tr").find("td").each(function(index) {
         info[index] = $(this).html();
     });
-    $("#rcategoria").hide();
-    $("#acategoria").show();
+    $("#registrarCategoria").hide();
+    $("#actualizarCategoria").show();
     $("#btnGuardarcategoria").hide();
-    $("#btnactualizarCategoria").show();
+    $("#btnActualizarCategoria").show();
     $("#categoria").val(info[1]);
-    $("#idcategoria").val(info[0]);
+    $("#id").val(info[0]);
     $("#categoria").focus();
 })
 
