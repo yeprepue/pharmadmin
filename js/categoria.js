@@ -1,21 +1,16 @@
-_categoria = (function () {
-
-    var tblRolesActivos = "";
-    var tblRolesInactivos = "";
-
-
-    var registrarRol = function () {
+_categoria = (function() {
+    var tblCategoriasActivas = "";
+    var tblCategoriasInactivas = "";
+    var registrarCategoria = function() {
         let url = location.protocol + "//" + location.host + '/pharmadmin/';
         // http://localhost/pharmadmin/
-
-        var formulario = $('#formRol').serialize();
-
+        var formulario = $('#formCategoria').serialize();
         $.ajax({
-            url: url + 'crol/registrarRol',
+            url: url + 'ccategoria/registrarCategoria',
             type: 'post',
             data: formulario,
             cache: false,
-            success: function (request, textStatus, jQxhr) {
+            success: function(request, textStatus, jQxhr) {
                 var data = JSON.parse(request);
                 if (data.status == 200) {
                     $.notify(data.msj, {
@@ -23,31 +18,30 @@ _categoria = (function () {
                         globalPosition: 'top center',
                         autoHideDelay: 3000
                     });
-                    $("#rol").val("");
-                    consultarRoles(true);
+                    $("#categoria").val("");
+                    consultarCategorias(true);
                 }
             },
-            error: function (jqXhr, textStatus, errorThrown) {
+            error: function(jqXhr, textStatus, errorThrown) {
                 console.log(errorThrown);
             }
         });
     }
 
-    function fxRolesActivos(rolesActivos, reload) {
+    function fxcategoriasActivas(categoriasActivas, reload) {
         if (reload) {
-            tblRolesActivos.fnDestroy();
+            tblCategoriasActivas.fnDestroy();
         }
-
-        tblRolesActivos = $('#tblRolesActivos').dataTable({
+        tblCategoriasActivas = $('#tblCategoriasActivas').dataTable({
             "pageLength": 5,
-            data: rolesActivos,
+            data: categoriasActivas,
             columns: [
                 { "data": "id" },
-                { "data": "rol" },
+                { "data": "categoria" },
                 { "data": "estado", visible: false },
                 {
                     data: 'id',
-                    render: function (data) {
+                    render: function(data) {
                         return `<button type="button" class="btn btn-info btn-editar">Editar</button>
                         <button type="button" class="btn btn-danger btn-desactivar">Desactivar</button>`
                     }
@@ -56,77 +50,75 @@ _categoria = (function () {
         });
     }
 
-    function fxRolesInactivos(rolesInactivos, reload) {
+    function fxcategoriasInactivas(categoriasInactivas, reload) {
         if (reload) {
-            tblRolesInactivos.fnDestroy();
+            tblCategoriasInactivas.fnDestroy();
         }
-        tblRolesInactivos = $('#tblRolesInactivos').dataTable({
+        tblCategoriasInactivas = $('#tblCategoriasInactivas').dataTable({
             "pageLength": 5,
-            data: rolesInactivos,
+            data: categoriasInactivas,
             columns: [
                 { "data": "id" },
-                { "data": "rol" },
+                { "data": "categoria" },
                 { "data": "estado", visible: false },
                 {
                     data: 'id',
-                    render: function (data) {
+                    render: function(data) {
                         return `<button type="button" class="btn btn-info btn-editar">Editar</button>
                         <button type="button" class="btn btn-success btn-desactivar">Activar</button>`
                     }
                 },
-
             ],
         });
     }
 
-    var consultarRoles = function (reload) {
+    var consultarCategorias = function(reload) {
         let url = location.protocol + "//" + location.host + '/pharmadmin/';
-
         $.ajax({
-            url: url + 'crol/consultarRoles',
+            url: url + 'ccategoria/consultarCategorias',
             type: 'post',
             cache: false,
-            success: function (request, textStatus, jQxhr) {
+            success: function(request, textStatus, jQxhr) {
                 var data = JSON.parse(request);
                 if (data.status == 200) {
 
-                    var rolesActivos = Array();
-                    var rolesInactivos = Array();
+                    var categoriasActivas = Array();
+                    var categoriasInactivas = Array();
                     var conAct = 0;
                     var conInac = 0;
 
-                    data.data.forEach(function (element, index) {
+                    data.data.forEach(function(element, index) {
                         if (element.estado == 0) {
-                            rolesInactivos[index - conAct] = element;
+                            categoriasInactivas[index - conAct] = element;
                             conInac = conInac + 1;
                         } else {
-                            rolesActivos[index - conInac] = element;
+                            categoriasActivas[index - conInac] = element;
                             conAct = conAct + 1;
                         }
                     });
-                    fxRolesActivos(rolesActivos, reload);
-                    fxRolesInactivos(rolesInactivos, reload);
+                    fxcategoriasActivas(categoriasActivas, reload);
+                    fxcategoriasInactivas(categoriasInactivas, reload);
                 }
             },
-            error: function (jqXhr, textStatus, errorThrown) {
+            error: function(jqXhr, textStatus, errorThrown) {
                 console.log(errorThrown);
             }
         });
     }
 
-    var actualizarRol = function () {
+    var actualizarCategoria = function() {
         let url = location.protocol + "//" + location.host + '/pharmadmin/';
         var parametros = {
-            id: $("#idrol").val(),
-            rol: $("#rol").val()
+            id: $("#idcategoria").val(),
+            rol: $("#categoria").val()
         }
 
         $.ajax({
-            url: url + 'crol/actualizarRol',
+            url: url + 'ccategoria/actualizarCategoria',
             type: 'post',
             data: parametros,
             cache: false,
-            success: function (request, textStatus, jQxhr) {
+            success: function(request, textStatus, jQxhr) {
                 var data = JSON.parse(request);
                 if (data.status == 200) {
                     $.notify(data.msj, {
@@ -134,22 +126,22 @@ _categoria = (function () {
                         globalPosition: 'top center',
                         autoHideDelay: 3000
                     });
-                    $("#rol").val("");
-                    $("#rRol").show();
-                    $("#aRol").hide();
-                    $("#btnGuardarRol").show();
-                    $("#btnActualizarRol").hide();
-                    $("#idrol").val("");
-                    consultarRoles(true);
+                    $("#categoria").val("");
+                    $("#rCategoria").show();
+                    $("#aCategoria").hide();
+                    $("#btnGuardarcategoria").show();
+                    $("#btnactualizarCategoria").hide();
+                    $("#idcategoria").val("");
+                    consultarCategorias(true);
                 }
             },
-            error: function (jqXhr, textStatus, errorThrown) {
+            error: function(jqXhr, textStatus, errorThrown) {
                 console.log(errorThrown);
             }
         });
     }
 
-    var cambiarEstadoRol = function (idrol) {
+    var cambiarEstadoCategoria = function(idcategoria) {
         let url = location.protocol + "//" + location.host + '/pharmadmin/';
         var parametros = {
             id: idrol
@@ -159,7 +151,7 @@ _categoria = (function () {
             type: 'post',
             data: parametros,
             cache: false,
-            success: function (request, textStatus, jQxhr) {
+            success: function(request, textStatus, jQxhr) {
                 var data = JSON.parse(request);
                 if (data.status == 200) {
                     $.notify(data.msj, {
@@ -168,70 +160,68 @@ _categoria = (function () {
                         autoHideDelay: 3000
                     });
 
-                    consultarRoles(true);
+                    consultarCategorias(true);
                 }
             },
-            error: function (jqXhr, textStatus, errorThrown) {
+            error: function(jqXhr, textStatus, errorThrown) {
                 console.log(errorThrown);
             }
         });
     }
 
     return {
-        registrarRol: registrarRol,
-        consultarRoles: consultarRoles,
-        actualizarRol: actualizarRol,
-        cambiarEstadoRol: cambiarEstadoRol
+        registrarCategoria: registrarCategoria,
+        consultarCategorias: consultarCategorias,
+        actualizarCategoria: actualizarCategoria,
+        cambiarEstadoCategoria: cambiarEstadoCategoria
     }
 })()
 
-$("#btnGuardarRol").off("click").on("click", function () {
-    debugger;
-    if ($("#rol").val() == "") {
-        $("#divmsj-rol").show();
+$("#btnGuardarCategoria").off("click").on("click", function() {
+    if ($("#categoria").val() == "") {
+        $("#divmsj-categoria").show();
         setTimeout(() => {
-            $("#divmsj-rol").hide();
+            $("#divmsj-categoria").hide();
         }, 3000);
     } else {
-        _categoria.registrarRol();
+        _categoria.registrarCategoria();
     }
 })
 
-$("#btnActualizarRol").off("click").on("click", function () {
-    if ($("#rol").val() == "") {
-        $("#divmsj-rol").show();
+$("#btnactualizarCategoria").off("click").on("click", function() {
+    if ($("#categoria").val() == "") {
+        $("#divmsj-categoria").show();
         setTimeout(() => {
-            $("#divmsj-rol").hide();
+            $("#divmsj-categoria").hide();
         }, 3000);
     } else {
-        _categoria.actualizarRol();
+        _categoria.actualizarCategoria();
     }
 })
 
-$(document).ready(function () {
-    _categoria.consultarRoles(false);
+$(document).ready(function() {
+    _categoria.consultarCategorias(false);
 });
 
-$(document).off("click", ".btn-editar").on("click", ".btn-editar", function () {
+$(document).off("click", ".btn-editar").on("click", ".btn-editar", function() {
     var info = Array();
-    $(this).parents("tr").find("td").each(function (index) {
+    $(this).parents("tr").find("td").each(function(index) {
         info[index] = $(this).html();
     });
-    $("#rRol").hide();
-    $("#aRol").show();
-    $("#btnGuardarRol").hide();
-    $("#btnActualizarRol").show();
-    $("#rol").val(info[1]);
-    $("#idrol").val(info[0]);
-    $("#rol").focus();
+    $("#rcategoria").hide();
+    $("#acategoria").show();
+    $("#btnGuardarcategoria").hide();
+    $("#btnactualizarCategoria").show();
+    $("#categoria").val(info[1]);
+    $("#idcategoria").val(info[0]);
+    $("#categoria").focus();
 })
 
 
-$(document).off("click", ".btn-desactivar").on("click", ".btn-desactivar", function () {
+$(document).off("click", ".btn-desactivar").on("click", ".btn-desactivar", function() {
     var info = Array();
-    $(this).parents("tr").find("td").each(function (index) {
+    $(this).parents("tr").find("td").each(function(index) {
         info[index] = $(this).html();
     });
-    _categoria.cambiarEstadoRol(info[0]);
+    _categoria.cambiarEstadoCategoria(info[0]);
 })
-

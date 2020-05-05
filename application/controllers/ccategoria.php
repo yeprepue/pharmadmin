@@ -6,7 +6,7 @@ class Ccategoria extends CI_Controller
     function __construct()
     {
         parent::__construct();
-        // $this->load->model('mrol');
+        $this->load->model('mcategoria');
     }
 
     public function index()
@@ -21,71 +21,65 @@ class Ccategoria extends CI_Controller
         }
     }
 
-    // public function actualizarRol()
-    // {
-    //     $id = $this->input->post('id');
-    //     $rol = $this->input->post('rol');
+    public function actualizarCategoria()
+    {
+        $id = $this->input->post('id');
+        $categoria = $this->input->post('categoria');
+        $res = $this->mcategoria->actualizarCategoria($id,$categoria);
+        if ($res) {
+            echo json_encode(array(
+                "status" => 200,
+                "msj" => "Actualizado correctamente"
+            ));
+        } else {
+            echo json_encode(array(
+                "status" => 404
+            ));
+        }
+    }
+    public function cambiarEstadocategoria()
+    {
+        $id = $this->input->post('id');
+        $res = $this->mcategoria->cambiarEstadocategoria($id);
+        if ($res) {
+            echo json_encode(array(
+                "status" => 200,
+                "msj" => "Actualizado correctamente"
+            ));
+        } else {
+            echo json_encode(array(
+                "status" => 404
+            ));
+        }
+    }
+    public function registrarCategoria()
+    {
+        $categoria = $this->input->post('categoria','descripcion');
+        $res = $this->mcategoria->registrarcategoria($categoria);
+        if ($res) {
+            echo json_encode(array(
+                "status" => 200,
+                "msj" => "Registrado correctamente"
+            ));
+        } else {
+            echo json_encode(array(
+                "status" => 404
+            ));
+        }
+    }
 
-    //     $res = $this->mrol->actualizarRol($id, $rol);
-
-    //     if ($res) {
-    //         echo json_encode(array(
-    //             "status" => 200,
-    //             "msj" => "Actualizado correctamente"
-    //         ));
-    //     } else {
-    //         echo json_encode(array(
-    //             "status" => 404
-    //         ));
-    //     }
-    // }
-
-    // public function cambiarEstadoRol()
-    // {
-    //     $id = $this->input->post('id');
-
-    //     $res = $this->mrol->cambiarEstadoRol($id);
-
-    //     if ($res) {
-    //         echo json_encode(array(
-    //             "status" => 200,
-    //             "msj" => "Actualizado correctamente"
-    //         ));
-    //     } else {
-    //         echo json_encode(array(
-    //             "status" => 404
-    //         ));
-    //     }
-    // }
-
-    // public function registrarRol()
-    // {
-    //     $rol = $this->input->post('rol');
-    //     $res = $this->mrol->registrarRol($rol);
-    //     if ($res) {
-    //         echo json_encode(array(
-    //             "status" => 200,
-    //             "msj" => "Registrado correctamente"
-    //         ));
-    //     } else {
-    //         echo json_encode(array(
-    //             "status" => 404
-    //         ));
-    //     }
-    // }
-
-    // public function consultarRoles()
-    // {
-    //     $res = $this->mrol->consultarRoles();
-    //     if ($res) {
-    //         echo json_encode(array(
-    //             "status" => 200,
-    //             "data" => $res
-    //         ));
-    //     } else {
-    //         echo json_encode(array(
-    //             "status" => 404
-    //         ));
-    //     }
-    // }
+    public function consultarCategorias()
+    {
+        $res = $this->mcategoria->consultarCategorias();    
+        if ($res) {
+            echo json_encode(array(
+                "status" => 200,
+                "data" => $res
+            ));
+        } else {
+            echo json_encode(array(
+                "status" => 404
+            ));
+        }
+    }
 }
