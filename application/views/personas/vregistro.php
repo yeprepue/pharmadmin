@@ -29,7 +29,7 @@
             <div class="card">
                 <div class="card-body login-card-body">
                     <p class="login-box-msg">Registrarse</p>
-                    <form action="<?php echo base_url(); ?>cpersona/registrarUsuario" method="post">
+                    <form id="formPersona">
                         <div class="form-group">
                             <input type="text" name="nombres" id="nombres" class="form-control" placeholder="Ingrese nombres">
                         </div>
@@ -58,7 +58,7 @@
                             <input type="number" name="telefono" id="telefono" class="form-control" placeholder="Ingrese teléfono">
                         </div>
                         <div class="form-group">
-                            <button class="btn btn-success btn-block">Guardar</button>
+                            <button id="btnRegistrarPersona" type="button" class="btn btn-success btn-block">Guardar</button>
                         </div>
                     </form>
                     <p class="mb-0">

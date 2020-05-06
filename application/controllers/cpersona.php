@@ -7,7 +7,6 @@ class Cpersona extends CI_Controller
     {
         parent::__construct();
         $this->load->model('mpersona');
-        // $this->load->library('encryption');
     }
 
     public function index()
@@ -34,6 +33,14 @@ class Cpersona extends CI_Controller
 
             $parametros['personas_id'] = $idPersona;
             $this->mpersona->guardarDatosContacto($parametros);
+            echo json_encode(array(
+                "status" => 200,
+                "msj" => "Registrado correctamente"
+            ));
+        } else {
+            echo json_encode(array(
+                "status" => 404
+            ));
         }
     }
 

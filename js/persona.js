@@ -1,4 +1,5 @@
 _persona = (function () {
+
     var iniciarSesion = function () {
 
         let url = location.protocol + "//" + location.host + '/pharmadmin/';
@@ -36,10 +37,38 @@ _persona = (function () {
             }
         });
     }
+
+    var registrarPersona = function () {
+        let url = location.protocol + "//" + location.host + '/pharmadmin/';
+
+        var formulario = $('#formPersona').serialize();
+
+        $.ajax({
+            url: url + 'cpersona/registrarUsuario',
+            type: 'post',
+            data: formulario,
+            cache: false,
+            success: function (request, textStatus, jQxhr) {
+                var data = JSON.parse(request);
+                if (data.status == 200) {
+                    location.href = url + 'cpersona';
+                }
+            },
+            error: function (jqXhr, textStatus, errorThrown) {
+                console.log(errorThrown);
+            }
+        });
+    }
     return {
-        iniciarSesion: iniciarSesion
+        iniciarSesion: iniciarSesion,
+        registrarPersona: registrarPersona
     }
 })()
+
+
+$("#btnRegistrarPersona").off("click").on("click", function () {
+    _persona.registrarPersona();
+})
 
 $("#btnIniciarSesion").off("click").on("click", function () {
     _persona.iniciarSesion();
