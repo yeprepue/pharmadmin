@@ -12,7 +12,7 @@
                                 <input id="ventaProducto" name="ventaProducto" type="text" class="form-control" aria-label="Text input with dropdown button" placeholder="Ingrese nombre o código de barras">
                                 <ul class="dd-productos dropdown-menu col-md-12" role="menu">
                                     <li>
-                                        <div class="table-responsive m-1" id="lstProductos" style="display:none;">
+                                        <div class="table-responsive col-md-12" id="lstProductos" style="display:none;">
                                             <table class="table table-bordered table-striped">
                                                 <thead>
                                                     <tr>
@@ -44,11 +44,12 @@
     </div>
     <div class="row">
         <div class="col-md-8 mt-2 mx-auto">
-            <div class="table-responsive m-1" id="selProductos">
+            <div class="table-responsive m-1" id="selProductos" style="display: none">
                 <table class="table table-bordered table-striped">
                     <thead>
                         <tr>
                             <th scope="col"></th>
+                            <th>#</th>
                             <th scope="col">Cantidad</th>
                             <th scope="col">Producto</th>
                             <th scope="col">Tipo</th>
@@ -60,7 +61,6 @@
                         </tr>
                     </thead>
                     <tbody>
-
                     </tbody>
                 </table>
             </div>
@@ -73,7 +73,15 @@
         cursor: pointer;
     }
 
-    #selProductos{
-        box-shadow: 2px 2px ·ccc;
+    #selProductos {
+        box-shadow: 2px 2px 2px 5px #bec2c5;
+    }
+
+    #selProductos .elim-producto {
+        cursor: pointer;
+    }
+
+    #selProductos .elim-producto:hover {
+        color: red !important;
     }
 </style>
