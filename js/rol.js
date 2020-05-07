@@ -4,7 +4,6 @@ _rol = (function () {
     var tblRolesInactivos = "";
     var registrarRol = function () {
         let url = location.protocol + "//" + location.host + '/pharmadmin/';
-        // http://localhost/pharmadmin/
 
         var formulario = $('#formRol').serialize();
 
@@ -184,7 +183,6 @@ _rol = (function () {
 })()
 
 $("#btnGuardarRol").off("click").on("click", function () {
-    debugger;
     if ($("#rol").val() == "") {
         $("#divmsj-rol").show();
         setTimeout(() => {

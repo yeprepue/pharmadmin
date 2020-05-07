@@ -46,10 +46,14 @@
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo base_url(); ?>assets/dist/js/demo.js"></script>
 </body>
-<!-- Roles -->
+<!-- Proyecto -->
 <script src="<?php echo base_url(); ?>js/rol.js"></script>
 <!-- Categorías -->
 <script src="<?php echo base_url(); ?>js/categoria.js"></script>
+
+<script src="<?php echo base_url(); ?>js/categoria.js"></script>
+<script src="<?php echo base_url(); ?>js/venta.js"></script>
+
 <!-- Datatables Bootstrap 4 -->
 <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/plugins/DataTablesB4/datatables.min.css" />
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/plugins/DataTablesB4/datatables.min.js"></script>

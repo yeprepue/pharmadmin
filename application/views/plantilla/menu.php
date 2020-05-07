@@ -29,7 +29,7 @@
                               <i class="nav-icon far fa-calendar-alt"></i>
                               <p>
                                   Roles
-                                  <span class="badge badge-info right">2</span>
+                                  <!-- <span class="badge badge-info right">2</span> -->
                               </p>
                           </a>
                       </li>
@@ -38,6 +38,15 @@
                               <i class="nav-icon far fa-calendar-alt"></i>
                               <p>
                                   Categorías
+                                  <!-- <span class="badge badge-info right">2</span> -->
+                              </p>
+                          </a>
+                      </li>
+                      <li class="nav-item">
+                          <a href="<?php echo base_url(); ?>cventa" class="nav-link">
+                              <i class="nav-icon far fa-calendar-alt"></i>
+                              <p>
+                                  Ventas
                                   <span class="badge badge-info right">2</span>
                               </p>
                           </a>
