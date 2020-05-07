@@ -9,7 +9,7 @@ class Mventa extends CI_Model
 
     public function buscarProducto($producto)
     {
-        $this->db->select('dp.id, p.producto, m.medida, nt.numero as numerotipo, nm.numero as numeromedida, tp.tipo, mar.marca, dp.codigobarras ');
+        $this->db->select('dp.id, p.producto, m.medida, nt.numero as numerotipo, nm.numero as numeromedida, tp.tipo, mar.marca, dp.codigobarras, dp.precioventa ');
         $this->db->from('detalleproductos dp');
         $this->db->join('productos p', 'dp.productos_id=p.id ');
         $this->db->join('medidas m', 'dp.medidas_id=m.id');

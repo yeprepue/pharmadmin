@@ -13,7 +13,7 @@
                                 <ul class="dd-productos dropdown-menu col-md-12" role="menu">
                                     <li>
                                         <div class="table-responsive col-md-12" id="lstProductos" style="display:none;">
-                                            <table class="table table-bordered table-striped">
+                                            <table class="table table-bordered table-striped table-condensed">
                                                 <thead>
                                                     <tr>
                                                         <th scope="col">Producto</th>
@@ -23,6 +23,7 @@
                                                         <th scope="col">#medida</th>
                                                         <th scope="col">Marca</th>
                                                         <th scope="col">Código</th>
+                                                        <th scope="col">Precio</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -45,19 +46,20 @@
     <div class="row">
         <div class="col-md-8 mt-2 mx-auto">
             <div class="table-responsive m-1" id="selProductos" style="display: none">
-                <table class="table table-bordered table-striped">
+                <table class="table table-bordered table-striped table-condensed">
                     <thead>
                         <tr>
-                            <th scope="col"></th>
                             <th>#</th>
-                            <th scope="col">Cantidad</th>
                             <th scope="col">Producto</th>
+                            <th scope="col">Cantidad</th>
+                            <th scope="col">Precio</th>
                             <th scope="col">Tipo</th>
                             <th scope="col">#tipo</th>
                             <th scope="col">Medida</th>
                             <th scope="col">#medida</th>
                             <th scope="col">Marca</th>
                             <th scope="col">Código</th>
+                            <th scope="col"></th>
                         </tr>
                     </thead>
                     <tbody>

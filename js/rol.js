@@ -45,8 +45,8 @@ _rol = (function () {
                 {
                     data: 'id',
                     render: function (data) {
-                        return `<button type="button" class="btn btn-info btn-editar">Editar</button>
-                        <button type="button" class="btn btn-danger btn-desactivar">Desactivar</button>`
+                        return `<button type="button" class="btn btn-info btn-edt-rol">Editar</button>
+                        <button type="button" class="btn btn-danger btn-desac-rol">Desactivar</button>`
                     }
                 },
             ],
@@ -67,8 +67,8 @@ _rol = (function () {
                 {
                     data: 'id',
                     render: function (data) {
-                        return `<button type="button" class="btn btn-info btn-editar">Editar</button>
-                        <button type="button" class="btn btn-success btn-desactivar">Activar</button>`
+                        return `<button type="button" class="btn btn-info btn-edt-rol">Editar</button>
+                        <button type="button" class="btn btn-success btn-desac-rol">Activar</button>`
                     }
                 },
 
@@ -208,7 +208,7 @@ $(document).ready(function () {
     _rol.consultarRoles(false);
 });
 
-$(document).off("click", ".btn-editar").on("click", ".btn-editar", function () {
+$(document).off("click", ".btn-edt-rol").on("click", ".btn-edt-rol", function () {
     var info = Array();
     $(this).parents("tr").find("td").each(function (index) {
         info[index] = $(this).html();
@@ -223,7 +223,7 @@ $(document).off("click", ".btn-editar").on("click", ".btn-editar", function () {
 })
 
 
-$(document).off("click", ".btn-desactivar").on("click", ".btn-desactivar", function () {
+$(document).off("click", ".btn-desac-rol").on("click", ".btn-desac-rol", function () {
     var info = Array();
     $(this).parents("tr").find("td").each(function (index) {
         info[index] = $(this).html();
