@@ -1,7 +1,7 @@
-_categoria = (function () {
+_categoria = (function() {
     var tblCategoriasActivas = "";
     var tblCategoriasInactivas = "";
-    var registrarCategoria = function () {
+    var registrarCategoria = function() {
         let url = location.protocol + "//" + location.host + '/pharmadmin/';
         // http://localhost/pharmadmin/
         var formulario = $('#formCategoria').serialize();
@@ -10,7 +10,7 @@ _categoria = (function () {
             type: 'post',
             data: formulario,
             cache: false,
-            success: function (request, textStatus, jQxhr) {
+            success: function(request, textStatus, jQxhr) {
                 var data = JSON.parse(request);
                 if (data.status == 200) {
                     $.notify(data.msj, {
@@ -22,7 +22,7 @@ _categoria = (function () {
                     consultarCategorias(true);
                 }
             },
-            error: function (jqXhr, textStatus, errorThrown) {
+            error: function(jqXhr, textStatus, errorThrown) {
                 console.log(errorThrown);
             }
         });
@@ -41,7 +41,7 @@ _categoria = (function () {
                 { "data": "estado", visible: false },
                 {
                     data: 'id',
-                    render: function (data) {
+                    render: function(data) {
                         return `<button type="button" class="btn btn-info btn-edt-cat">Editar</button>
                         <button type="button" class="btn btn-danger btn-desac-cat">Desactivar</button>`
                     }
@@ -63,7 +63,7 @@ _categoria = (function () {
                 { "data": "estado", visible: false },
                 {
                     data: 'id',
-                    render: function (data) {
+                    render: function(data) {
                         return `<button type="button" class="btn btn-info btn-edt-cat">Editar</button>
                         <button type="button" class="btn btn-success btn-desac-cat">Activar</button>`
                     }
@@ -71,20 +71,20 @@ _categoria = (function () {
             ],
         });
     }
-    var consultarCategorias = function (reload) {
+    var consultarCategorias = function(reload) {
         let url = location.protocol + "//" + location.host + '/pharmadmin/';
         $.ajax({
             url: url + 'ccategoria/consultarCategorias',
             type: 'post',
             cache: false,
-            success: function (request, textStatus, jQxhr) {
+            success: function(request, textStatus, jQxhr) {
                 var data = JSON.parse(request);
                 if (data.status == 200) {
                     var categoriasActivas = Array();
                     var categoriasInactivas = Array();
                     var conAct = 0;
                     var conInac = 0;
-                    data.data.forEach(function (element, index) {
+                    data.data.forEach(function(element, index) {
                         if (element.estado == 0) {
                             categoriasInactivas[index - conAct] = element;
                             conInac = conInac + 1;
@@ -97,12 +97,12 @@ _categoria = (function () {
                     fxcategoriasInactivas(categoriasInactivas, reload);
                 }
             },
-            error: function (jqXhr, textStatus, errorThrown) {
+            error: function(jqXhr, textStatus, errorThrown) {
                 console.log(errorThrown);
             }
         });
     }
-    var actualizarCategoria = function () {
+    var actualizarCategoria = function() {
         let url = location.protocol + "//" + location.host + '/pharmadmin/';
         var parametros = {
             id: $("#id").val(),
@@ -113,7 +113,7 @@ _categoria = (function () {
             type: 'post',
             data: parametros,
             cache: false,
-            success: function (request, textStatus, jQxhr) {
+            success: function(request, textStatus, jQxhr) {
                 var data = JSON.parse(request);
                 if (data.status == 200) {
                     $.notify(data.msj, {
@@ -126,16 +126,16 @@ _categoria = (function () {
                     $("#actualizarCategoria").hide();
                     $("#btnGuardarcategoria").hide();
                     $("#btnActualizarCategoria").show();
-                    $("#id").val("");
+                    $("#idcategoria").val("");
                     consultarCategorias(true);
                 }
             },
-            error: function (jqXhr, textStatus, errorThrown) {
+            error: function(jqXhr, textStatus, errorThrown) {
                 console.log(errorThrown);
             }
         });
     }
-    var cambiarEstadoCategoria = function (id) {
+    var cambiarEstadoCategoria = function(id) {
         let url = location.protocol + "//" + location.host + '/pharmadmin/';
         var parametros = {
             id: id
@@ -145,7 +145,7 @@ _categoria = (function () {
             type: 'post',
             data: parametros,
             cache: false,
-            success: function (request, textStatus, jQxhr) {
+            success: function(request, textStatus, jQxhr) {
                 var data = JSON.parse(request);
                 if (data.status == 200) {
                     $.notify(data.msj, {
@@ -156,7 +156,7 @@ _categoria = (function () {
                     consultarCategorias(true);
                 }
             },
-            error: function (jqXhr, textStatus, errorThrown) {
+            error: function(jqXhr, textStatus, errorThrown) {
                 console.log(errorThrown);
             }
         });
@@ -168,7 +168,7 @@ _categoria = (function () {
         cambiarEstadoCategoria: cambiarEstadoCategoria
     }
 })()
-$("#btnGuardarCategoria").off("click").on("click", function () {
+$("#btnGuardarCategoria").off("click").on("click", function() {
     if ($("#categoria").val() == "") {
         $("#divmsj-categoria").show();
         setTimeout(() => {
@@ -178,7 +178,7 @@ $("#btnGuardarCategoria").off("click").on("click", function () {
         _categoria.registrarCategoria();
     }
 })
-$("#btnactualizarCategoria").off("click").on("click", function () {
+$("#btnactualizarCategoria").off("click").on("click", function() {
     if ($("#categoria").val() == "") {
         $("#divmsj-categoria").show();
         setTimeout(() => {
@@ -188,12 +188,12 @@ $("#btnactualizarCategoria").off("click").on("click", function () {
         _categoria.actualizarCategoria();
     }
 })
-$(document).ready(function () {
+$(document).ready(function() {
     _categoria.consultarCategorias(false);
 });
-$(document).off("click", ".btn-edt-cat").on("click", ".btn-edt-cat", function () {
+$(document).off("click", ".btn-edt-cat").on("click", ".btn-edt-cat", function() {
     var info = Array();
-    $(this).parents("tr").find("td").each(function (index) {
+    $(this).parents("tr").find("td").each(function(index) {
         info[index] = $(this).html();
     });
     $("#registrarCategoria").hide();
@@ -206,9 +206,9 @@ $(document).off("click", ".btn-edt-cat").on("click", ".btn-edt-cat", function ()
 })
 
 
-$(document).off("click", ".btn-desac-cat").on("click", ".btn-desac-cat", function () {
+$(document).off("click", ".btn-desac-cat").on("click", ".btn-desac-cat", function() {
     var info = Array();
-    $(this).parents("tr").find("td").each(function (index) {
+    $(this).parents("tr").find("td").each(function(index) {
         info[index] = $(this).html();
     });
     _categoria.cambiarEstadoCategoria(info[0]);
