@@ -73,7 +73,7 @@ _venta = (function () {
                 <td colspan="2"></td>
                 <td colspan="1">Cantidad productos: <input id="totalcantidad" type="number" disabled class="form-control cantvendida bg-primary"></td>
                 <td colspan="2">Precio total: <input id="totalventa" type="number" disabled class="form-control bg-primary"></td>
-                <td colspan="5"></td>
+                <td colspan="6"><label></label><button class="btn btn-success btn-block">Facturar</button></td>
             </tr>
         `);
         $("#totalcantidad").val(calcularCantidad(infoProducto));

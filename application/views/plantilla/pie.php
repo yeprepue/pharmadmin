@@ -50,8 +50,6 @@
 <script src="<?php echo base_url(); ?>js/rol.js"></script>
 <!-- Categorías -->
 <script src="<?php echo base_url(); ?>js/categoria.js"></script>
-
-<script src="<?php echo base_url(); ?>js/categoria.js"></script>
 <script src="<?php echo base_url(); ?>js/venta.js"></script>
 
 <!-- Datatables Bootstrap 4 -->

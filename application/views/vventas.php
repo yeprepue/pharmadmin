@@ -1,6 +1,6 @@
 <div class="container-fluid">
     <div class="row ml-2 mr-2">
-        <div class="col-md-6 mt-4 mx-auto">
+        <div class="col-md-8 mt-4 mx-auto">
             <div class="card card-primary card-outline">
                 <div class="card-header text-center">
                     <h3 id="rRol">Registro de ventas</h3>
@@ -44,7 +44,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-8 mt-2 mx-auto">
+        <div class="col-md-10 mt-2 mx-auto">
             <div class="table-responsive m-1" id="selProductos" style="display: none">
                 <table class="table table-bordered table-striped table-condensed">
                     <thead>

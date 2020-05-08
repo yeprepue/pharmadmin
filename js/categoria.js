@@ -1,6 +1,7 @@
 _categoria = (function () {
     var tblCategoriasActivas = "";
     var tblCategoriasInactivas = "";
+
     var registrarCategoria = function () {
         let url = location.protocol + "//" + location.host + '/pharmadmin/';
         // http://localhost/pharmadmin/
@@ -71,6 +72,7 @@ _categoria = (function () {
             ],
         });
     }
+
     var consultarCategorias = function (reload) {
         let url = location.protocol + "//" + location.host + '/pharmadmin/';
         $.ajax({
@@ -102,12 +104,15 @@ _categoria = (function () {
             }
         });
     }
+
     var actualizarCategoria = function () {
         let url = location.protocol + "//" + location.host + '/pharmadmin/';
         var parametros = {
-            id: $("#id").val(),
+            //Acá había una error
+            id: $("#idcategoria").val(),
             categoria: $("#categoria").val()
         }
+
         $.ajax({
             url: url + 'ccategoria/actualizarCategoria',
             type: 'post',
@@ -124,9 +129,10 @@ _categoria = (function () {
                     $("#categoria").val("");
                     $("#registrarCategoria").show();
                     $("#actualizarCategoria").hide();
-                    $("#btnGuardarcategoria").hide();
+                    $("#btnGuardarCategoria").hide();
                     $("#btnActualizarCategoria").show();
-                    $("#id").val("");
+                    //Acá había una error
+                    $("#idcategoria").val("");
                     consultarCategorias(true);
                 }
             },
@@ -135,6 +141,7 @@ _categoria = (function () {
             }
         });
     }
+
     var cambiarEstadoCategoria = function (id) {
         let url = location.protocol + "//" + location.host + '/pharmadmin/';
         var parametros = {
@@ -178,7 +185,7 @@ $("#btnGuardarCategoria").off("click").on("click", function () {
         _categoria.registrarCategoria();
     }
 })
-$("#btnactualizarCategoria").off("click").on("click", function () {
+$("#btnActualizarCategoria").off("click").on("click", function () {
     if ($("#categoria").val() == "") {
         $("#divmsj-categoria").show();
         setTimeout(() => {
@@ -198,10 +205,11 @@ $(document).off("click", ".btn-edt-cat").on("click", ".btn-edt-cat", function ()
     });
     $("#registrarCategoria").hide();
     $("#actualizarCategoria").show();
-    $("#btnGuardarcategoria").hide();
+    $("#btnGuardarCategoria").hide();
     $("#btnActualizarCategoria").show();
     $("#categoria").val(info[1]);
-    $("#id").val(info[0]);
+    //Acá había una error
+    $("#idcategoria").val(info[0]);
     $("#categoria").focus();
 })
 
