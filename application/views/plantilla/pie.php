@@ -8,7 +8,6 @@
 </footer>
 </div>
 <!-- ./wrapper -->
-
 <!-- jQuery -->
 <script src="<?php echo base_url(); ?>assets/plugins/jquery/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
@@ -51,20 +50,15 @@
 <!-- Categorías -->
 <script src="<?php echo base_url(); ?>js/categoria.js"></script>
 <script src="<?php echo base_url(); ?>js/venta.js"></script>
-
 <!-- Datatables Bootstrap 4 -->
 <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/plugins/DataTablesB4/datatables.min.css" />
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/plugins/DataTablesB4/datatables.min.js"></script>
-
 <!-- Bootstrap Toogle -->
 <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/plugins/bootstrap-switch\dist/css/bootstrap4/bootstrap-switch.min.css" />
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/plugins/bootstrap-switch\dist/js/bootstrap-switch.min.js"></script>
-
 <!-- Datatables select -->
 <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/plugins/datatables-select/datatables.min.css" />
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/plugins/datatables-select/datatables.min.js"></script>
-
 <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
 <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
-
 </html>

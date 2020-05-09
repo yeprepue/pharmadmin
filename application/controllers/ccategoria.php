@@ -2,13 +2,11 @@
 
 class Ccategoria extends CI_Controller
 {
-
     function __construct()
     {
         parent::__construct();
         $this->load->model('mcategoria');
     }
-
     public function index()
     {
         if ($this->session->userdata('sUsuario')) {
@@ -20,7 +18,6 @@ class Ccategoria extends CI_Controller
             $this->load->view('personas/vingreso');
         }
     }
-
     public function actualizarCategoria()
     {
         $id = $this->input->post('id');
@@ -67,7 +64,6 @@ class Ccategoria extends CI_Controller
             ));
         }
     }
-
     public function consultarCategorias()
     {
         $res = $this->mcategoria->consultarCategorias();    
