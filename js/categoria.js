@@ -4,7 +4,6 @@ _categoria = (function () {
 
     var registrarCategoria = function () {
         let url = location.protocol + "//" + location.host + '/pharmadmin/';
-        // http://localhost/pharmadmin/
         var formulario = $('#formCategoria').serialize();
         $.ajax({
             url: url + 'ccategoria/registrarCategoria',

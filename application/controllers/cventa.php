@@ -14,7 +14,7 @@ class Cventa extends CI_Controller
         if ($this->session->userdata('sUsuario')) {
             $this->load->view('plantilla/cabecera');
             $this->load->view('plantilla/menu');
-            $this->load->view('vventas');
+            $this->load->view('vventa');
             $this->load->view('plantilla/pie');
         } else {
             $this->load->view('personas/vingreso');

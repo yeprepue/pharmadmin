@@ -68,6 +68,44 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalproductos">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content text-center">
+
+                <!-- Modal Header -->
+                <div class="modal-header ">
+                    <h4 class="modal-title">Resumen de compra</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <table id="tblResumenProductos" class="table table-bordered table-sm">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Producto</th>
+                                <th>Marca</th>
+                                <th>Cantidad</th>
+                                <th>Precio</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
 </div>
 <style>
     #lstProductos tbody tr:hover {
