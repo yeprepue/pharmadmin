@@ -15,56 +15,7 @@ _venta = (function () {
 				success: function (request, textStatus, jQxhr) {
 					var data = JSON.parse(request);
 					$("#lstProductos tbody").empty();
-					data.data.forEach(function (element) {
-						$("#lstProductos tbody").append(
-							`
-                        <tr>
-                            <td data-id="` +
-								element.id +
-								`"><a class="sel">` +
-								element.producto +
-								`</a></td>
-                            <td data-id="` +
-								element.id +
-								`"><a class="sel">` +
-								element.tipo +
-								`</a></td>
-                            <td data-id="` +
-								element.id +
-								`"><a class="sel">` +
-								element.numerotipo +
-								`</a></td>
-                            <td data-id="` +
-								element.id +
-								`"><a class="sel">` +
-								element.medida +
-								`</a></td>
-                            <td data-id="` +
-								element.id +
-								`"><a class="sel">` +
-								element.numeromedida +
-								`</a></td>
-                            <td data-id="` +
-								element.id +
-								`"><a class="sel">` +
-								element.marca +
-								`</a></td>
-                            <td data-id="` +
-								element.id +
-								`"><a class="sel">` +
-								element.codigobarras +
-								`</a></td>
-                            <td data-id="` +
-								element.id +
-								`"><a class="sel">` +
-								element.precioventa +
-								`</a></td>
-                        </tr>
-                    `
-						);
-						$("#lstProductos").show();
-						$(".dd-productos.dropdown-menu").addClass("show");
-					});
+					fxLstProductos(data);
 				},
 				error: function (jqXhr, textStatus, errorThrown) {
 					console.log(errorThrown);
@@ -74,6 +25,60 @@ _venta = (function () {
 			$("#lstProductos").hide();
 			$(".dd-productos.dropdown-menu").removeClass("show");
 		}
+	};
+
+	//Construimos una tabla con los productos encontrados
+	var fxLstProductos = function (data) {
+		data.data.forEach(function (element) {
+			$("#lstProductos tbody").append(
+				`
+			<tr>
+				<td data-id="` +
+					element.id +
+					`"><a class="sel">` +
+					element.producto +
+					`</a></td>
+				<td data-id="` +
+					element.id +
+					`"><a class="sel">` +
+					element.tipo +
+					`</a></td>
+				<td data-id="` +
+					element.id +
+					`"><a class="sel">` +
+					element.numerotipo +
+					`</a></td>
+				<td data-id="` +
+					element.id +
+					`"><a class="sel">` +
+					element.medida +
+					`</a></td>
+				<td data-id="` +
+					element.id +
+					`"><a class="sel">` +
+					element.numeromedida +
+					`</a></td>
+				<td data-id="` +
+					element.id +
+					`"><a class="sel">` +
+					element.marca +
+					`</a></td>
+				<td data-id="` +
+					element.id +
+					`"><a class="sel">` +
+					element.codigobarras +
+					`</a></td>
+				<td data-id="` +
+					element.id +
+					`"><a class="sel">` +
+					element.precioventa +
+					`</a></td>
+			</tr>
+		`
+			);
+			$("#lstProductos").show();
+			$(".dd-productos.dropdown-menu").addClass("show");
+		});
 	};
 
 	//Seleccionamos los productos y los almacenamos en un arreglo
@@ -100,11 +105,11 @@ _venta = (function () {
 					`" data-pos="` +
 					index +
 					`" class="cantvendida"></td>
-                <td><label id="precio` +
+                <td><span class="lblprecio" id="precio` +
 					index +
 					`">` +
 					element.precio * element.cantidad +
-					`</label></td>
+					`</span></td>
                 <td data-id="` +
 					element.id +
 					`">` +
@@ -137,7 +142,7 @@ _venta = (function () {
 					`</td>
                 <td><i class="fas fa-times-circle text-danger elim-producto"></i></td>
             </tr>
-        `
+		`
 			);
 		});
 
@@ -145,15 +150,28 @@ _venta = (function () {
 
 		//Construimos el footer de la table en donde van los totales
 		$("#selProductos tbody").append(`
-            <tr>
-                <td colspan="2"></td>
-                <td colspan="1">Cantidad productos: <input id="totalcantidad" type="number" disabled class="form-control cantvendida bg-primary"></td>
-                <td colspan="2">Precio total: <input id="totalventa" type="number" disabled class="form-control bg-primary"></td>
-                <td colspan="6"><label></label><button id="btnFacturar" class="btn btn-success btn-block">Facturar</button></td>
-            </tr>
-        `);
+			<tr class="tr-totales">
+				<td colspan="2"></td>
+                c<td><strong>Total:</strong></td>
+				<td colspan="8"><input id="totalventa" type="text" disabled class="totalvendido"></td>
+			</tr>
+			<tr class="tr-totales">
+				<td colspan="2"></td>
+				<td><strong>Monto de pago:</strong></td>
+				<td colspan="8"><input id="montopago" type="text" class="montopago" placeholder="Ingrese el monto"></td>
+			</tr>
+			<tr class="tr-totales">
+				<td colspan="2"></td>
+				<td><strong>Devolución:</strong></td>
+				<td colspan="8"><label></label><input id="devolucion" type="text" class="totalvendido" disabled></td>
+			</tr>
+		`);
+
 		$("#totalcantidad").val(calcularCantidad(infoProducto));
 		$("#totalventa").val(calcularVenta(infoProducto));
+		$("#totalventa").number(true, 0);
+		$("#montopago").number(true, 0);
+		$(".lblprecio").number(true, 0);
 	};
 
 	/*Permite calcular la cantidad total de productos que pasan por la caja*/
@@ -178,6 +196,28 @@ _venta = (function () {
 		return total;
 	};
 
+	//Calculamos el valor que debe devolverse al cliente
+	var calcularDevolucion = function () {
+		var devolucion = $("#montopago").val() - $("#totalventa").val();
+		$("#devolucion").val(devolucion);
+		$("#devolucion").number(true, 0);
+	};
+
+	//Operamos precios y cantidades y luego mostramos totales
+	var mostrarTotales = function (pos) {
+		localStorage.setItem("selproductos", JSON.stringify(infoProducto));
+		var cantidad = $("#cantvendida" + pos).val();
+		infoProducto[pos].cantidad = cantidad;
+		var precio = infoProducto[pos].precio * cantidad;
+		$("#precio" + pos).html(precio);
+		$("#totalcantidad").val(calcularCantidad(infoProducto));
+		$("#totalventa").val(calcularVenta(infoProducto));
+		$(".lblprecio").number(true, 0);
+		var devolucion = $("#montopago").val() - $("#totalventa").val();
+		$("#devolucion").val(devolucion);
+		$("#devolucion").number(true, 0);
+	};
+
 	/*Almacenamos en un arreglo los productos seleccionados con sus respectivas cantidades*/
 	var productosSelecionados = function (selProducto, reload) {
 		if (reload) {
@@ -189,33 +229,8 @@ _venta = (function () {
 		//Limpiamos la tabla
 		$("#selProductos tbody").empty();
 
+		//Cargamos los datos de la tabla de nuevo
 		fxSelProductos(infoProducto);
-
-		$(document)
-			.off("keyup", ".cantvendida")
-			.on("keyup", ".cantvendida", function () {
-				localStorage.setItem("selproductos", JSON.stringify(infoProducto));
-				var pos = $(this).data("pos");
-				var cantidad = $("#cantvendida" + pos).val();
-				infoProducto[pos].cantidad = cantidad;
-				var precio = infoProducto[pos].precio * cantidad;
-				$("#precio" + pos).html(precio);
-				$("#totalcantidad").val(calcularCantidad(infoProducto));
-				$("#totalventa").val(calcularVenta(infoProducto));
-			});
-
-		$(document)
-			.off("change", ".cantvendida")
-			.on("change", ".cantvendida", function () {
-				localStorage.setItem("selproductos", JSON.stringify(infoProducto));
-				var pos = $(this).data("pos");
-				var cantidad = $("#cantvendida" + pos).val();
-				infoProducto[pos].cantidad = cantidad;
-				var precio = infoProducto[pos].precio * cantidad;
-				$("#precio" + pos).html(precio);
-				$("#totalcantidad").val(calcularCantidad(infoProducto));
-				$("#totalventa").val(calcularVenta(infoProducto));
-			});
 	};
 
 	//Eliminamos el producto del arreglo y de la vista
@@ -225,16 +240,87 @@ _venta = (function () {
 		infoProducto.splice(pos, 1);
 		if (infoProducto.length == 0) {
 			$("#selProductos").hide();
+			$("#rowFacturar").hide();
 		}
 		productosSelecionados(infoProducto, true);
+	};
+
+	var facturar = function () {
+		lsSelProductos = JSON.parse(localStorage.getItem("selproductos"));
+		let url = location.protocol + "//" + location.host + "/pharmadmin/";
+
+		var datos = [];
+		var objeto = {};
+
+		lsSelProductos.forEach(function (element, index) {
+			datos[index] = {
+				precioventa: element.precio,
+				cantidad: element.cantidad,
+				detalleproductos_id: element.id,
+				tipomovimientos_id: 1,
+				personas_id: $("#idusuario").val(),
+			};
+		});
+
+		objeto.datos = datos;
+
+		var parametros = {
+			data: JSON.stringify(objeto),
+		};
+		$.ajax({
+			url: url + "cventa/facturar",
+			type: "post",
+			data: parametros,
+			cache: false,
+			success: function (request, textStatus, jQxhr) {
+				var data = JSON.parse(request);
+				infoProducto = [];
+				$("#selProductos tbody").empty();
+				$("#selProductos").hide();
+				$("#rowFacturar").hide();
+				localStorage.setItem("selproductos", JSON.stringify(infoProducto));
+			},
+			error: function (jqXhr, textStatus, errorThrown) {
+				console.log(errorThrown);
+			},
+		});
 	};
 
 	return {
 		buscarProducto: buscarProducto,
 		productosSelecionados: productosSelecionados,
 		eliminarSelProducto: eliminarSelProducto,
+		calcularDevolucion: calcularDevolucion,
+		mostrarTotales: mostrarTotales,
+		facturar: facturar,
 	};
 })();
+
+$(document)
+	.off("keyup", ".montopago")
+	.on("keyup", ".montopago", function () {
+		_venta.calcularDevolucion();
+	});
+
+$(document)
+	.off("change", ".montopago")
+	.on("change", ".montopago", function () {
+		_venta.calcularDevolucion();
+	});
+
+$(document)
+	.off("keyup", ".cantvendida")
+	.on("keyup", ".cantvendida", function () {
+		var pos = $(this).data("pos");
+		_venta.mostrarTotales(pos);
+	});
+
+$(document)
+	.off("change", ".cantvendida")
+	.on("change", ".cantvendida", function () {
+		var pos = $(this).data("pos");
+		_venta.mostrarTotales(pos);
+	});
 
 $("#ventaProducto")
 	.off("keyup")
@@ -249,6 +335,7 @@ $(document)
 		$("#ventaProducto").val("");
 		$("#lstProductos").hide();
 		$("#selProductos").show();
+		$("#rowFacturar").show();
 		var info = Array();
 		var idproducto = $(this).parents("tr").find("td").data("id");
 		$(this)
@@ -272,22 +359,10 @@ $(document)
 		_venta.productosSelecionados(selProducto, false);
 	});
 
-$("#btnActualizarRol")
-	.off("click")
-	.on("click", function () {
-		if ($("#rol").val() == "") {
-			$("#divmsj-rol").show();
-			setTimeout(() => {
-				$("#divmsj-rol").hide();
-			}, 3000);
-		} else {
-			_venta.actualizarRol();
-		}
-	});
-
 $(document).ready(function () {
 	$("#ventaProducto").focus();
 	$("#dropdownMenuButton").hide();
+	$(".lblprecio").number(true, 0);
 });
 
 $(document)
@@ -307,53 +382,5 @@ $(document)
 $(document)
 	.off("click", "#btnFacturar")
 	.on("click", "#btnFacturar", function () {
-		var tmpResumen = 0;
-		var totalResumen = 0;
-		lsSelProductos = JSON.parse(localStorage.getItem("selproductos"));
-		$("#modalproductos").modal("show");
-		$("#tblResumenProductos tbody").empty();
-
-		lsSelProductos.forEach(function (element, index) {
-			var num = index + 1;
-			$("#tblResumenProductos tbody").append(
-				`
-                <tr>
-                <td>` +
-					num +
-					`</td>
-                    <td>` +
-					element.producto +
-					`</td>
-                    <td>` +
-					element.marca +
-					`</td>
-                    <td>` +
-					element.cantidad +
-					`</td>
-                    <td>` +
-					element.precio * element.cantidad +
-					`</td>
-                </tr>
-            `
-			);
-			tmpResumen = parseFloat(element.precio) * parseInt(element.cantidad);
-			totalResumen = totalResumen + tmpResumen;
-		});
-
-		$("#tblResumenProductos tbody").append(
-			`
-            <tr>
-                <td colspan="3"></td>
-                <td><strong>Paga con:</strong></td>
-                <td><strong>Total:</strong></td>
-            </tr>
-            <tr>
-            <td colspan="3"></td>
-            <td><input type="number"></td>
-            <td><strong>` +
-				totalResumen +
-				`</strong></td>
-            </tr>
-        `
-		);
+		_venta.facturar();
 	});

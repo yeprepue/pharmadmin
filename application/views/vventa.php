@@ -1,6 +1,6 @@
 <div class="container-fluid">
     <div class="row ml-2 mr-2">
-        <div class="col-md-8 mt-4 mx-auto">
+        <div class="col-md-9 mt-4 mx-auto">
             <div class="card card-primary card-outline">
                 <div class="card-header text-center">
                     <h3 id="rRol">Registro de ventas</h3>
@@ -42,11 +42,12 @@
                 </div>
             </div>
         </div>
+        <input type="hidden" id="idusuario" value="<?php echo $this->session->userdata('sIdusuario') ?>">
     </div>
     <div class="row">
-        <div class="col-md-10 mt-2 mx-auto">
+        <div class="col-md-11 mt-2 mx-auto">
             <div class="table-responsive m-1" id="selProductos" style="display: none">
-                <table class="table table-bordered table-striped table-condensed">
+                <table class="table table-bordered table-striped table-sm">
                     <thead>
                         <tr>
                             <th>#</th>
@@ -67,42 +68,9 @@
                 </table>
             </div>
         </div>
-    </div>
-
-    <!-- Modal -->
-    <div class="modal fade" id="modalproductos">
-        <div class="modal-dialog modal-xl">
-            <div class="modal-content text-center">
-
-                <!-- Modal Header -->
-                <div class="modal-header ">
-                    <h4 class="modal-title">Resumen de compra</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-
-                <!-- Modal body -->
-                <div class="modal-body">
-                    <table id="tblResumenProductos" class="table table-bordered table-sm">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Producto</th>
-                                <th>Marca</th>
-                                <th>Cantidad</th>
-                                <th>Precio</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-
-                        </tbody>
-                    </table>
-                </div>
-
-                <!-- Modal footer -->
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary">Close</button>
-                </div>
-
+        <div class="col-md-3 offset-md-2 mt-1" id="rowFacturar" style="display: none">
+            <div class="form-group">
+                <button id="btnFacturar" class="btn btn-facturar btn-block text-bold">Facturar</button>
             </div>
         </div>
     </div>
@@ -115,6 +83,7 @@
 
     #selProductos {
         box-shadow: 2px 2px 2px 5px #bec2c5;
+        border-radius: 10px;
     }
 
     #selProductos .elim-producto {
@@ -123,5 +92,37 @@
 
     #selProductos .elim-producto:hover {
         color: red !important;
+    }
+
+    .cantvendida {
+        width: 150px;
+        border-radius: 5px;
+        padding-left: 2px;
+    }
+
+    .totalvendido {
+        border-radius: 5px;
+        font-size: 18px;
+        font-weight: bolder;
+        width: 150px;
+    }
+
+    .montopago {
+        border-radius: 5px;
+        font-size: 18px;
+        width: 150px;
+
+    }
+
+    .tr-totales {
+        background-color: #45a98b !important;
+    }
+
+    .btn-facturar {
+        background-color: #45a98b;
+    }
+
+    .btn-facturar:hover {
+        background-color: #178866;
     }
 </style>

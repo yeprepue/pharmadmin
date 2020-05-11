@@ -37,4 +37,21 @@ class Cventa extends CI_Controller
             ));
         }
     }
+
+    public function facturar()
+    {
+        $data = $this->input->post('data');
+        $res = $this->mventa->facturar($data);
+
+        if ($res) {
+            echo json_encode(array(
+                "status" => 200,
+                "msj" => "Registrado correctamente"
+            ));
+        } else {
+            echo json_encode(array(
+                "status" => 404
+            ));
+        }
+    }
 }

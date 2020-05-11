@@ -28,4 +28,14 @@ class Mventa extends CI_Model
             return false;
         }
     }
+
+    public function facturar($data)
+    {
+        $datos = json_decode($data);
+        $this->db->insert_batch('movimientos', $datos->datos);
+        if ($this->db->affected_rows()) {
+            return true;
+        }
+        return false;
+    }
 }
