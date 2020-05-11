@@ -6,7 +6,7 @@
                     <h3 id="rRol">Registro de ventas</h3>
                 </div>
                 <div class="card-body">
-                    <form id="formVenta">
+                    <form id="formfactura">
                         <div class="row">
                             <div class="col-md-12">
                                 <input id="ventaProducto" name="ventaProducto" type="text" class="form-control" aria-label="Text input with dropdown button" placeholder="Ingrese nombre o código de barras">
@@ -74,6 +74,43 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalproductos">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content text-center">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title  mx-auto">Factura de venta <span id="facturaventa"># </span></h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <table id="tblResumenProductos" class="table table-bordered table-sm">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Producto</th>
+                                <th>Cantidad</th>
+                                <th>Precio</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary">Cerrar</button>
+                    <button type="button" class="btn btn-success">Imprimir</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <style>
     #lstProductos tbody tr:hover {
@@ -105,12 +142,14 @@
         font-size: 18px;
         font-weight: bolder;
         width: 150px;
+        padding-left: 2px;
     }
 
     .montopago {
         border-radius: 5px;
         font-size: 18px;
         width: 150px;
+        padding-left: 2px;
 
     }
 

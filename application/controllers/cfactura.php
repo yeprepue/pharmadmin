@@ -1,12 +1,12 @@
 <?php
 
-class Cventa extends CI_Controller
+class cfactura extends CI_Controller
 {
 
     function __construct()
     {
         parent::__construct();
-        $this->load->model('mventa');
+        $this->load->model('mfactura');
     }
 
     public function index()
@@ -14,7 +14,7 @@ class Cventa extends CI_Controller
         if ($this->session->userdata('sUsuario')) {
             $this->load->view('plantilla/cabecera');
             $this->load->view('plantilla/menu');
-            $this->load->view('vventa');
+            $this->load->view('vfactura');
             $this->load->view('plantilla/pie');
         } else {
             $this->load->view('personas/vingreso');
@@ -25,7 +25,7 @@ class Cventa extends CI_Controller
     {
         $producto = $this->input->post('ventaProducto');
 
-        $res = $this->mventa->buscarProducto($producto);
+        $res = $this->mfactura->buscarProducto($producto);
         if ($res) {
             echo json_encode(array(
                 "status" => 200,
@@ -41,12 +41,12 @@ class Cventa extends CI_Controller
     public function facturar()
     {
         $data = $this->input->post('data');
-        $res = $this->mventa->facturar($data);
+        $res = $this->mfactura->facturar($data);
 
-        if ($res) {
+        if ($res > 0) {
             echo json_encode(array(
                 "status" => 200,
-                "msj" => "Registrado correctamente"
+                "data" => $res
             ));
         } else {
             echo json_encode(array(

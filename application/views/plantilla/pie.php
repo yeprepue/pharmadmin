@@ -51,7 +51,12 @@
 <script src="<?php echo base_url(); ?>js/rol.js"></script>
 <!-- Categorías -->
 <script src="<?php echo base_url(); ?>js/categoria.js"></script>
-<script src="<?php echo base_url(); ?>js/venta.js"></script>
+<script src="<?php echo base_url(); ?>js/factura.js"></script>
+
+<!-- Sweet alert -->
+<script type="text/javascript" src="<?php echo base_url(); ?>assets/plugins/bootstrap-sweetalert/dist/sweetalert.min.js"></script>
+<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/plugins/bootstrap-sweetalert/dist/sweetalert.css" />
+
 <!-- Datatables Bootstrap 4 -->
 <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/plugins/DataTablesB4/datatables.min.css" />
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/plugins/DataTablesB4/datatables.min.js"></script>
@@ -63,4 +68,5 @@
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/plugins/datatables-select/datatables.min.js"></script>
 <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
 <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
 </html>

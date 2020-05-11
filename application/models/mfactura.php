@@ -1,6 +1,6 @@
 <?php
 
-class Mventa extends CI_Model
+class mfactura extends CI_Model
 {
     function   __construct()
     {
@@ -31,10 +31,29 @@ class Mventa extends CI_Model
 
     public function facturar($data)
     {
+        $datos = array(
+            'estado' => 1
+        );
+
+        $this->db->insert('facturas', $datos);
+        $insertid = $this->db->insert_id();
+
         $datos = json_decode($data);
-        $this->db->insert_batch('movimientos', $datos->datos);
+
+        foreach ($datos->datos as $value) {
+            $valuesAux = [];
+            $valuesAux['facturas_id'] = $insertid;
+            $valuesAux['precioventa'] = $value->precioventa;
+            $valuesAux['cantidad'] = $value->cantidad;
+            $valuesAux['montopago'] = $value->montopago;
+            $valuesAux['detalleproductos_id'] = $value->detalleproductos_id;
+            $valuesAux['personas_id'] = $value->personas_id;
+            $values[] = $valuesAux;
+        }
+
+        $this->db->insert_batch('detallefacturas', $values);
         if ($this->db->affected_rows()) {
-            return true;
+            return $insertid;
         }
         return false;
     }

@@ -26,7 +26,7 @@
                with font-awesome or any other icon font library -->
                       <li class="nav-item">
                           <a href="<?php echo base_url(); ?>crol" class="nav-link">
-                              <i class="nav-icon far fa-calendar-alt"></i>
+                              <i class="nav-icon fas fa-users"></i>
                               <p>
                                   Roles
                                   <!-- <span class="badge badge-info right">2</span> -->
@@ -35,21 +35,67 @@
                       </li>
                       <li class="nav-item">
                           <a href="<?php echo base_url(); ?>ccategoria" class="nav-link">
-                              <i class="nav-icon far fa-calendar-alt"></i>
+                              <i class="nav-icon fas fa-layer-group"></i>
                               <p>
                                   Categorías
                                   <!-- <span class="badge badge-info right">2</span> -->
                               </p>
                           </a>
                       </li>
-                      <li class="nav-item">
-                          <a href="<?php echo base_url(); ?>cventa" class="nav-link">
-                              <i class="nav-icon far fa-calendar-alt"></i>
+                      <li class="nav-item has-treeview">
+                          <a href="" class="nav-link">
+                              <i class="nav-icon far fa-money-bill-alt"></i>
                               <p>
-                                  Ventas
-                                  <span class="badge badge-info right">2</span>
+                                  Movimientos
+                                  <i class="right fas fa-angle-left"></i>
                               </p>
                           </a>
+                          <ul class="nav nav-treeview">
+                              <li class="nav-item">
+                                  <a href="<?php echo base_url(); ?>cfactura" class="nav-link">
+                                      <i class="far fa-circle nav-icon"></i>
+                                      <p>
+                                          Ventas
+                                      </p>
+                                  </a>
+                              </li>
+                              <li class="nav-item">
+                                  <a href="<?php echo base_url(); ?>cfactura" class="nav-link">
+                                      <i class="far fa-circle nav-icon"></i>
+                                      <p>
+                                          Pedidos
+                                      </p>
+                                  </a>
+                              </li>
+                          </ul>
+                      </li>
+
+                      <li class="nav-item has-treeview">
+                          <a href="" class="nav-link">
+                          <i class="nav-icon fas fa-book-open"></i>
+                              <p>
+                                  Reportes
+                                  <i class="right fas fa-angle-left"></i>
+                              </p>
+                          </a>
+                          <ul class="nav nav-treeview">
+                              <li class="nav-item">
+                                  <a href="<?php echo base_url(); ?>cfactura" class="nav-link">
+                                      <i class="far fa-circle nav-icon"></i>
+                                      <p>
+                                          Ventas
+                                      </p>
+                                  </a>
+                              </li>
+                              <li class="nav-item">
+                                  <a href="<?php echo base_url(); ?>cfactura" class="nav-link">
+                                      <i class="far fa-circle nav-icon"></i>
+                                      <p>
+                                          Pedidos
+                                      </p>
+                                  </a>
+                              </li>
+                          </ul>
                       </li>
                       <li class="nav-item has-treeview menu-open">
                           <a href="<?php echo base_url(); ?>crol" class="nav-link active">

@@ -5,10 +5,10 @@ _venta = (function () {
 	var buscarProducto = function () {
 		let url = location.protocol + "//" + location.host + "/pharmadmin/";
 
-		var formulario = $("#formVenta").serialize();
+		var formulario = $("#formfactura").serialize();
 		if (formulario.split("=")[1] !== "") {
 			$.ajax({
-				url: url + "cventa/buscarProducto",
+				url: url + "cfactura/buscarProducto",
 				type: "post",
 				data: formulario,
 				cache: false,
@@ -191,7 +191,7 @@ _venta = (function () {
 		var venta = 0;
 		for (let i = 0; i < infoProducto.length; i++) {
 			venta = $("#cantvendida" + i).val() * infoProducto[i].precio;
-			total = total + parseInt(venta);
+			total = total + parseFloat(venta);
 		}
 		return total;
 	};
@@ -256,8 +256,8 @@ _venta = (function () {
 			datos[index] = {
 				precioventa: element.precio,
 				cantidad: element.cantidad,
+				montopago: parseFloat($("#montopago").val()),
 				detalleproductos_id: element.id,
-				tipomovimientos_id: 1,
 				personas_id: $("#idusuario").val(),
 			};
 		});
@@ -268,12 +268,14 @@ _venta = (function () {
 			data: JSON.stringify(objeto),
 		};
 		$.ajax({
-			url: url + "cventa/facturar",
+			url: url + "cfactura/facturar",
 			type: "post",
 			data: parametros,
 			cache: false,
 			success: function (request, textStatus, jQxhr) {
+				debugger;
 				var data = JSON.parse(request);
+				resumenFactura(data.data);
 				infoProducto = [];
 				$("#selProductos tbody").empty();
 				$("#selProductos").hide();
@@ -281,9 +283,81 @@ _venta = (function () {
 				localStorage.setItem("selproductos", JSON.stringify(infoProducto));
 			},
 			error: function (jqXhr, textStatus, errorThrown) {
+				debugger;
 				console.log(errorThrown);
 			},
 		});
+	};
+
+	var resumenFactura = function (numFactura) {
+		$("#modalproductos").modal("show");
+		$("#tblResumenProductos tbody").empty();
+		var montopago = $("#montopago").val();
+		var tmpResumen = 0;
+		var totalResumen = 0;
+		$("#facturaventa").append(numFactura);
+		lsSelProductos = JSON.parse(localStorage.getItem("selproductos"));
+
+		lsSelProductos.forEach(function (element, index) {
+			var num = index + 1;
+
+			$("#tblResumenProductos tbody").append(
+				`
+                <tr>
+                <td>` +
+					num +
+					`</td>
+                    <td>` +
+					element.producto +
+					` ` +
+					element.marca +
+					` ` +
+					element.nmedida +
+					` ` +
+					element.medida +
+					` ` +
+					element.ntipo +
+					` ` +
+					element.tipo +
+					`</td>
+                    <td>` +
+					element.cantidad +
+					`</td>
+                    <td>` +
+					element.precio * element.cantidad +
+					`</td>
+                </tr>
+            `
+			);
+
+			tmpResumen = parseFloat(element.precio) * parseInt(element.cantidad);
+			totalResumen = totalResumen + tmpResumen;
+		});
+
+		$("#tblResumenProductos tbody").append(
+			`
+			<tr>
+				<td colspan="5"></td>
+            <tr>
+				<td colspan="2"><span><strong>Devolución:</strong></span></td>
+                <td><strong>Paga con:</strong></td>
+                <td><strong>Total:</strong></td>
+            </tr>
+            <tr>
+				<td colspan="2"><span class="resumen"><strong>` +
+				(montopago - totalResumen) +
+				`</strong></span></td>
+            	<td><span class="resumen"><strong>` +
+				montopago +
+				`</strong></span></td>
+            	<td><span class="resumen"><strong>` +
+				totalResumen +
+				`</strong></span></td>
+            </tr>
+        `
+		);
+
+		$(".resumen").number(true, 0);
 	};
 
 	return {
@@ -293,6 +367,7 @@ _venta = (function () {
 		calcularDevolucion: calcularDevolucion,
 		mostrarTotales: mostrarTotales,
 		facturar: facturar,
+		resumenFactura: resumenFactura,
 	};
 })();
 
@@ -382,5 +457,24 @@ $(document)
 $(document)
 	.off("click", "#btnFacturar")
 	.on("click", "#btnFacturar", function () {
-		_venta.facturar();
+		var tmpDevolucion = $("#devolucion").val();
+		var tmpMontopago = $("#montopago").val();
+
+		if (tmpMontopago == "") {
+			$("#montopago").focus();
+			swal(
+				"¡Cuidado!",
+				"Debe escribir el monto con el que paga el cliente",
+				"error"
+			);
+		} else if (tmpDevolucion < 0) {
+			$("#montopago").focus();
+			swal(
+				"¡Cuidado!",
+				"El monto de pago debe ser mayor al total de la compra",
+				"error"
+			);
+		} else {
+			_venta.facturar();
+		}
 	});
