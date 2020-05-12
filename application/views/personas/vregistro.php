@@ -20,15 +20,15 @@
         <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
     </head>
 
-    <body class="hold-transition login-page">
+    <body class="hold-transition login-page" style='background-image: url("<?php echo base_url(); ?>img/farmacia3.jpg");background-size: cover;'>
         <div class="login-box">
-            <div class="login-logo">
-                <a href="../../index2.html"><b>Pharm</b>Admin</a>
+            <div class="login-logo" style="text-shadow: 1px 1px #000;">
+                <a href=""><b>Pharm<span class="text-danger">Admin</span></b></a>
             </div>
             <!-- /.login-logo -->
-            <div class="card">
+            <div class="card" id="cardregistro">
                 <div class="card-body login-card-body">
-                    <p class="login-box-msg">Registrarse</p>
+                    <h4 class="text-center">Registro</h4>
                     <form id="formPersona">
                         <div class="form-group">
                             <input type="text" name="nombres" id="nombres" class="form-control" placeholder="Ingrese nombres">
@@ -58,11 +58,15 @@
                             <input type="number" name="telefono" id="telefono" class="form-control" placeholder="Ingrese teléfono">
                         </div>
                         <div class="form-group">
-                            <button id="btnRegistrarPersona" type="button" class="btn btn-success btn-block">Guardar</button>
+                            <button id="btnRegistrarPersona" type="button" class="btn btn-danger btn-block">Registrarse</button>
+                        </div>
+                        <div class="form-group text-center">
+                            <label class="label-control">¿Ya estás registrado?</label>
+                            <a href="<?php echo base_url() ?>cpersona/formularioIngreso" class="form control btn btn-primary btn-block">Inicia sesión</a>
                         </div>
                     </form>
                     <p class="mb-0">
-                        <a href="<?php echo base_url() ?>cpersona/formularioIngreso">Login</a>
+                        
                     </p>
                 </div>
                 <!-- /.login-card-body -->
@@ -79,5 +83,15 @@
         <script src="<?php echo base_url(); ?>js/persona.js"></script>
 
     </body>
+    <style>
+        #cardregistro .login-card-body {
+            border-radius: 10px;
+            box-shadow: 0px 0px 5px 5px #a1a4a7;
+        }
+
+        #cardregistro {
+            opacity: 0.85;
+        }
+    </style>
 
     </html>

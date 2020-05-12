@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 3 | Log in</title>
+  <title>PharmAdmin | Iniciar sesión</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -20,15 +20,15 @@
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
 
-<body class="hold-transition login-page">
+<body class="hold-transition login-page" style='background-image: url("<?php echo base_url(); ?>img/farmacia3.jpg");background-size: cover;'>
   <div class="login-box">
-    <div class="login-logo">
-      <a href="../../index2.html"><b>Pharm</b>Admin</a>
+    <div class="login-logo" style="text-shadow: 1px 1px #000;">
+      <a href=""><b>Pharm<span class="text-danger">Admin</span></b></a>
     </div>
     <!-- /.login-logo -->
-    <div class="card">
+    <div class="card" id="cardlogin">
       <div class="card-body login-card-body">
-        <p class="login-box-msg">Iniciar sesión</p>
+        <h4 class="text-center">Inicio de sesión</h4>
 
         <form id="formIngreso">
           <div class="input-group mb-3">
@@ -58,7 +58,7 @@
             </div>
             <!-- /.col -->
             <div class="col-6">
-              <button type="button" id="btnIniciarSesion" class="btn btn-primary btn-block">Iniciar sesión</button>
+              <button type="button" id="btnIniciarSesion" class="btn btn-danger btn-block">Iniciar sesión</button>
             </div>
             <div class="col-12 mt-4">
               <div class="form-group">
@@ -70,10 +70,10 @@
         </form>
 
         <p class="mb-1">
-          <a href="forgot-password.html">Olvidé mi contraseña</a>
+          <a href="">Olvidé mi contraseña</a>
         </p>
         <p class="mb-0">
-          <a href="<?php echo base_url(); ?>cpersona/formularioRegistro" class="text-center">Registrarse</a>
+          <a href="<?php echo base_url(); ?>cpersona/formularioRegistro" class="text-center">Regístrate</a>
         </p>
       </div>
       <!-- /.login-card-body -->
@@ -92,8 +92,15 @@
   <script src="<?php echo base_url(); ?>js/persona.js"></script>
 
 </body>
-<!-- <script>
-  var baseurl = "<?php echo base_url(); ?>"
-</script> -->
+<style>
+  #cardlogin .login-card-body {
+    border-radius: 10px;
+    box-shadow: 0px 0px 5px 5px #a1a4a7;
+  }
+
+  #cardlogin {
+    opacity: 0.85;
+  }
+</style>
 
 </html>

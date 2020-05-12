@@ -72,7 +72,7 @@
 
                       <li class="nav-item has-treeview">
                           <a href="" class="nav-link">
-                          <i class="nav-icon fas fa-book-open"></i>
+                              <i class="nav-icon fas fa-book-open"></i>
                               <p>
                                   Reportes
                                   <i class="right fas fa-angle-left"></i>
@@ -80,7 +80,7 @@
                           </a>
                           <ul class="nav nav-treeview">
                               <li class="nav-item">
-                                  <a href="<?php echo base_url(); ?>cfactura" class="nav-link">
+                                  <a href="<?php echo base_url(); ?>creporte/reportes" class="nav-link">
                                       <i class="far fa-circle nav-icon"></i>
                                       <p>
                                           Ventas
@@ -88,7 +88,7 @@
                                   </a>
                               </li>
                               <li class="nav-item">
-                                  <a href="<?php echo base_url(); ?>cfactura" class="nav-link">
+                                  <a href="<?php echo base_url(); ?>" class="nav-link">
                                       <i class="far fa-circle nav-icon"></i>
                                       <p>
                                           Pedidos
