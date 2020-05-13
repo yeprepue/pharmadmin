@@ -7,10 +7,12 @@ class Mreporte extends CI_Model
         parent::__construct();
     }
 
-    public function consultarFacturas()
+    public function consultarFacturas($fechaInicial, $fechaFinal)
     {
         $this->db->select('*');
         $this->db->from('facturas');
+        $this->db->where('fecha <', $fechaInicial);
+        $this->db->where('fecha >', $fechaFinal);
 
         $res = $this->db->get();
 
@@ -36,5 +38,4 @@ class Mreporte extends CI_Model
             return false;
         }
     }
-    
 }

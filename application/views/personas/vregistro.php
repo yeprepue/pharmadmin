@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>AdminLTE 3 | Log in</title>
+        <title>PharmAdmin | Registrarse</title>
         <!-- Tell the browser to be responsive to screen width -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -40,7 +40,7 @@
                             <input type="text" name="documento" id="documento" class="form-control" placeholder="Ingrese documento">
                         </div>
                         <div class="form-group">
-                            <input type="date" name="fechanacimiento" id="fechanacimiento" class="form-control" placeholder="Ingrese fecha">
+                            <input type="text" name="fechanacimiento" id="fechanacimiento" class="form-control" placeholder="Ingrese fecha" onfocus="(this.type='date')" onblur="(this.type='text')">
                         </div>
                         <div class="form-group">
                             <input type="text" name="usuario" id="usuario" class="form-control" placeholder="Ingrese usuario">
@@ -57,6 +57,11 @@
                         <div class="form-group">
                             <input type="number" name="telefono" id="telefono" class="form-control" placeholder="Ingrese teléfono">
                         </div>
+                        <div class="col-12 mt-4" id="msjerror" style="display: none">
+                            <div class="form-group">
+                                <label class="text-danger">* Debe completar todos los campos del formulario</label>
+                            </div>
+                        </div>
                         <div class="form-group">
                             <button id="btnRegistrarPersona" type="button" class="btn btn-danger btn-block">Registrarse</button>
                         </div>
@@ -66,7 +71,7 @@
                         </div>
                     </form>
                     <p class="mb-0">
-                        
+
                     </p>
                 </div>
                 <!-- /.login-card-body -->

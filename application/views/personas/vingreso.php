@@ -47,33 +47,31 @@
               </div>
             </div>
           </div>
+          <div class="form-group" id="msjerror">
+            <label class="text-danger">* Usuario o contraseña incorrecta</label>
+          </div>
           <div class="row">
-            <div class="col-6">
-              <div class="icheck-primary">
-                <input type="checkbox" id="remember">
-                <label for="remember">
-                  Recuérdame
-                </label>
-              </div>
-            </div>
-            <!-- /.col -->
-            <div class="col-6">
+            <div class="col-12">
               <button type="button" id="btnIniciarSesion" class="btn btn-danger btn-block">Iniciar sesión</button>
             </div>
-            <div class="col-12 mt-4">
-              <div class="form-group">
-                <label id="msjerror" class="text-danger" style="display: none">* Usuario o contraseña incorrecta</label>
+            <div class="col-12">
+              <div class="icheck-primary">
+                <input type="checkbox" id="remember">
+                <p class="mb-1">
+                  <a href="">Olvidé mi contraseña</a>
+                </p>
               </div>
             </div>
-            <!-- /.col -->
+            <div class="col-md-12 mx-auto">
+              <div class="form-group text-center">
+                <label class="label-control">¿No estás registrado?</label>
+                <a href="<?php echo base_url(); ?>cpersona/formularioRegistro" class="text-center btn btn-primary btn-block">Regístrate</a>
+              </div>
+            </div>
           </div>
         </form>
-
-        <p class="mb-1">
-          <a href="">Olvidé mi contraseña</a>
-        </p>
         <p class="mb-0">
-          <a href="<?php echo base_url(); ?>cpersona/formularioRegistro" class="text-center">Regístrate</a>
+
         </p>
       </div>
       <!-- /.login-card-body -->

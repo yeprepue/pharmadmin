@@ -3,17 +3,20 @@
         <div class="col-md-3 mt-4">
             <div class="card card-primary card-outline card-tabs">
                 <div class="card-header">
-                    <h3>Filtros</h3>
+                    <h3>Rango de fechas</h3>
                 </div>
                 <div class="card-body">
-                    <form action="">
+                    <form id="frmFacturas">
                         <div class="form-group">
                             <label>Fecha</label>
-                            <input type="date" name="" id=""  class="form-control">
+                            <input type="text" name="fechaInicial" id="fechaInicial" class="form-control" placeholder="Fecha inicial" onfocus="(this.type='date')" onblur="(this.type='text')">
                         </div>
                         <div class="form-group">
                             <label>Fecha</label>
-                            <input type="date" name="" id="" class="form-control">
+                            <input type="text" name="fechaFinal" id="FechaFinal" class="form-control" placeholder="Fecha final" onfocus="(this.type='date')" onblur="(this.type='text')">
+                        </div>
+                        <div class="form-group">
+                            <button id="btnRangoFechas" type="button" class="btn btn-success btn-block">Consultar</button>
                         </div>
                     </form>
                 </div>
@@ -35,26 +38,28 @@
                     <div class="card-body">
                         <div class="tab-content" id="custom-tabs-two-tabContent">
                             <div class="tab-pane fade show active" id="custom-tabs-two-home" role="tabpanel" aria-labelledby="custom-tabs-two-home-tab">
-                                <!-- Tabla activos -->
-                                <table id="tblReporteFacturas" style="width: 100%" class="table table-bordered table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col"># factura</th>
-                                            <th scope="col">Fecha</th>
-                                            <th scope="col">Estado</th>
-                                        </tr>
-                                    </thead>
-                                    <!-- <tbody>
+                                <div class="table-responsive">
+                                    <!-- Tabla facturas -->
+                                    <table id="tblReporteFacturas" style="width: 100%" class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col"># factura</th>
+                                                <th scope="col">Fecha</th>
+                                                <th scope="col">Estado</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
 
-                                    </tbody> -->
-                                </table>
-                                <!-- Fin tabla activos -->
+                                        </tbody>
+                                    </table>
+                                    <!-- Fin tabla facturas -->
+                                </div>
                             </div>
                             <div class="tab-pane fade" id="custom-tabs-two-profile" role="tabpanel" aria-labelledby="custom-tabs-two-profile-tab">
                                 <table id="tblReportePedidos" style="width: 100%" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
-                                        <th scope="col"># pedido</th>
+                                            <th scope="col"># pedido</th>
                                             <th scope="col">Fecha</th>
                                             <th scope="col">Estado</th>
                                         </tr>

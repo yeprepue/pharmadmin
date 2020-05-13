@@ -24,7 +24,6 @@ _reporte = (function () {
 			tblReportePedidos.fnDestroy();
 		}
 
-		debugger;
 		tblReportePedidos = $("#tblReportePedidos").dataTable({
 			pageLength: 8,
 			select: true,
@@ -37,24 +36,23 @@ _reporte = (function () {
 		});
 	}
 
-	var consultarFacturas = function (reload) {
-		let url = location.protocol + "//" + location.host + "/pharmadmin/";
+	// var consultarFacturas = function (reload) {
+	// 	let url = location.protocol + "//" + location.host + "/pharmadmin/";
 
-		$.ajax({
-			url: url + "creporte/consultarFacturas",
-			type: "post",
-			cache: false,
-			success: function (request, textStatus, jQxhr) {
-				debugger;
-				var data = JSON.parse(request);
+	// 	$.ajax({
+	// 		url: url + "creporte/consultarFacturas",
+	// 		type: "post",
+	// 		cache: false,
+	// 		success: function (request, textStatus, jQxhr) {
+	// 			var data = JSON.parse(request);
 
-				fxReporteFacturas(data.data);
-			},
-			error: function (jqXhr, textStatus, errorThrown) {
-				console.log(errorThrown);
-			},
-		});
-	};
+	// 			fxReporteFacturas(data.data);
+	// 		},
+	// 		error: function (jqXhr, textStatus, errorThrown) {
+	// 			console.log(errorThrown);
+	// 		},
+	// 	});
+	// };
 
 	var consultarPedidos = function (reload) {
 		let url = location.protocol + "//" + location.host + "/pharmadmin/";
@@ -64,10 +62,31 @@ _reporte = (function () {
 			type: "post",
 			cache: false,
 			success: function (request, textStatus, jQxhr) {
-				debugger;
 				var data = JSON.parse(request);
 
 				fxReportePedidos(data.data);
+			},
+			error: function (jqXhr, textStatus, errorThrown) {
+				console.log(errorThrown);
+			},
+		});
+	};
+
+	var consultarFacturas = function (reload) {
+		let url = location.protocol + "//" + location.host + "/pharmadmin/";
+
+		var formulario = $("#frmFacturas").serialize();
+
+		$.ajax({
+			url: url + "creporte/consultarFacturas",
+			type: "post",
+			cache: false,
+			data: formulario,
+			success: function (request, textStatus, jQxhr) {
+				debugger;
+				var data = JSON.parse(request);
+
+				fxReporteFacturas(data.data, reload);
 			},
 			error: function (jqXhr, textStatus, errorThrown) {
 				console.log(errorThrown);
@@ -85,3 +104,9 @@ $(document).ready(function () {
 	_reporte.consultarFacturas(false);
 	_reporte.consultarPedidos(false);
 });
+
+$("#btnRangoFechas")
+	.off("click")
+	.on("click", function () {
+		_reporte.consultarFacturas(true);
+	});

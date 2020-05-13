@@ -273,7 +273,6 @@ _venta = (function () {
 			data: parametros,
 			cache: false,
 			success: function (request, textStatus, jQxhr) {
-				debugger;
 				var data = JSON.parse(request);
 				resumenFactura(data.data);
 				infoProducto = [];
@@ -283,7 +282,6 @@ _venta = (function () {
 				localStorage.setItem("selproductos", JSON.stringify(infoProducto));
 			},
 			error: function (jqXhr, textStatus, errorThrown) {
-				debugger;
 				console.log(errorThrown);
 			},
 		});

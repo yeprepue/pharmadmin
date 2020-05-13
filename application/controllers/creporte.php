@@ -35,7 +35,21 @@ class Creporte extends CI_Controller
 
     public function consultarFacturas()
     {
-        $res = $this->mreporte->consultarFacturas();
+        $fechaInicial = $this->input->post('fechaInicial');
+        $fechaFinal = $this->input->post('fechaFinal');
+
+
+        if ($fechaInicial == null) {
+            $fechaInicial = date("yy-m-d");
+            $fecha = date('Y-m-j');
+            $fechaFinal = strtotime('-8 day', strtotime($fechaInicial));
+            $fechaFinal = date('Y-m-j', $fechaFinal);
+        }
+        $fechaInicial = strtotime('+1 day', strtotime($fechaInicial));
+        $fechaInicial = date('Y-m-j', $fechaInicial);
+
+        $res = $this->mreporte->consultarFacturas($fechaInicial, $fechaFinal);
+
         if ($res) {
             echo json_encode(array(
                 "status" => 200,

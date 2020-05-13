@@ -1,4 +1,4 @@
-categoria = (function () {
+_categoria = (function () {
 	var tblCategoriasActivas = "";
 	var tblCategoriasInactivas = "";
 
