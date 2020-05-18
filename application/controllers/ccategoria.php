@@ -22,7 +22,7 @@ class Ccategoria extends CI_Controller
     {
         $id = $this->input->post('id');
         $categoria = $this->input->post('categoria');
-        $res = $this->mcategoria->actualizarCategoria($id,$categoria);
+        $res = $this->mcategoria->actualizarCategoria($id, $categoria);
         if ($res) {
             echo json_encode(array(
                 "status" => 200,
@@ -51,13 +51,21 @@ class Ccategoria extends CI_Controller
     }
     public function registrarCategoria()
     {
-        $categoria = $this->input->post('categoria','descripcion');
-        $res = $this->mcategoria->registrarcategoria($categoria);
+        $categoria = $this->input->post('categoria');
+        $descripcion = $this->input->post('descripcion');
+
+        // var_dump($categoria."-".$descripcion);
+        // exit;
+
+
+        $res = $this->mcategoria->registrarcategoria($categoria, $descripcion);
         if ($res) {
-            echo json_encode(array(
-                "status" => 200,
-                "msj" => "Registrado correctamente"
-            ));
+            echo json_encode(
+                array(
+                    "status" => 200,
+                    "msj" => "Registrado correctamente"
+                )
+            );
         } else {
             echo json_encode(array(
                 "status" => 404
@@ -66,7 +74,7 @@ class Ccategoria extends CI_Controller
     }
     public function consultarCategorias()
     {
-        $res = $this->mcategoria->consultarCategorias();    
+        $res = $this->mcategoria->consultarCategorias();
         if ($res) {
             echo json_encode(array(
                 "status" => 200,

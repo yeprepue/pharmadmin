@@ -7,10 +7,12 @@ class Mcategoria extends CI_Model
         parent::__construct();
     }
 
-    public function registrarCategoria($categoria)
+    public function registrarCategoria($categoria, $descripcion)
     {
+        //Creamos un arreglo [campo de la base de datos y su respectivo valor]
         $datos = array(
-            'categoria' => $categoria
+            'categoria' => $categoria,
+            'descripcion' =>$descripcion
         );
         $this->db->insert('categorias', $datos);
         if ($this->db->affected_rows()) {

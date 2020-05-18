@@ -11,13 +11,10 @@
                         <div class="form-group">
                             <input type="text" name="categoria" id="categoria" class="form-control" placeholder="Ingrese el nombre de la categoría">
                             <br>
-                            <!--label for="descripcion">Descripcion</label>
-                            <textarea name="descripcion" id="descripcion" cols="48" rows="10"></textarea-->                            
+                            <!-- <label for="descripcion">Descripcion</label> -->
+                            <textarea name="descripcion" id="descripcion" class="form-control" placeholder="Ingrese una categoría"></textarea>                            
                         </div>
                         <div id="divmsj-categoria" class="form-group text-danger" style="display: none">
-                            <label>* Ingrese el nombre del categoria</label>
-                        </div>
-                        <div id="divmsj-descripcion" class="form-group text-danger" style="display: none">
                             <label>* Ingrese el nombre del categoria</label>
                         </div>
                         <div class="form-group">
