@@ -52,6 +52,7 @@
 <!-- Categorías -->
 <script src="<?php echo base_url(); ?>js/categoria.js"></script>
 <script src="<?php echo base_url(); ?>js/factura.js"></script>
+<script src="<?php echo base_url(); ?>js/producto.js"></script>
 <script src="<?php echo base_url(); ?>js/reporte.js"></script>
 
 <!-- Sweet alert -->

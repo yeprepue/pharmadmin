@@ -83,7 +83,6 @@ _reporte = (function () {
 			cache: false,
 			data: formulario,
 			success: function (request, textStatus, jQxhr) {
-				debugger;
 				var data = JSON.parse(request);
 
 				fxReporteFacturas(data.data, reload);

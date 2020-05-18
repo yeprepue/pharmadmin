@@ -25,6 +25,15 @@
                       <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                       <li class="nav-item">
+                          <a href="<?php echo base_url(); ?>cproducto" class="nav-link">
+                              <i class="nav-icon fas fa-users"></i>
+                              <p>
+                                  Productos
+                                  <!-- <span class="badge badge-info right">2</span> -->
+                              </p>
+                          </a>
+                      </li>
+                      <li class="nav-item">
                           <a href="<?php echo base_url(); ?>crol" class="nav-link">
                               <i class="nav-icon fas fa-users"></i>
                               <p>
