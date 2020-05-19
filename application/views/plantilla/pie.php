@@ -55,6 +55,7 @@
 <script src="<?php echo base_url(); ?>js/factura.js"></script>
 <script src="<?php echo base_url(); ?>js/producto.js"></script>
 <script src="<?php echo base_url(); ?>js/reporte.js"></script>
+<script src="<?php echo base_url(); ?>js/modulo.js"></script>
 
 <!-- Sweet alert -->
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/plugins/bootstrap-sweetalert/dist/sweetalert.min.js"></script>
