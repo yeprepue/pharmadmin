@@ -7,28 +7,29 @@ class Mproducto extends CI_Model
         parent::__construct();
     }
 
-    public function registrarProducto($rol, $idcategoria)
+    public function registrarProducto($producto, $idcategoria)
     {
         $datos = array(
-            'producto' => $rol,
+            'producto' => $producto,
             'categorias_id' => $idcategoria
         );
-        $this->db->insert('roles', $datos);
+        $this->db->insert('productos', $datos);
         if ($this->db->affected_rows()) {
             return true;
         }
         return false;
     }
-    public function actualizarProducto($id, $rol, $idcategoria)
+    public function actualizarProducto($id, $producto, $idcategoria)
     {
         $datos = array(
-            'producto' => $rol,
+            'producto' => $producto,
             'categorias_id' => $idcategoria
         );
         $this->db->select('producto');
         $this->db->from('productos');
         $this->db->where('id', $id);
-        $this->db->where('producto', $rol);
+        $this->db->where('producto', $producto);
+        $this->db->where('categorias_id', $idcategoria);
         $res = $this->db->get();
 
         if ($res->num_rows() > 0) {

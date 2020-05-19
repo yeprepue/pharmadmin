@@ -50,6 +50,7 @@
 <!-- Proyecto -->
 <script src="<?php echo base_url(); ?>js/rol.js"></script>
 <!-- Categorías -->
+<script src="<?php echo base_url(); ?>js/globalDT.js"></script>
 <script src="<?php echo base_url(); ?>js/categoria.js"></script>
 <script src="<?php echo base_url(); ?>js/factura.js"></script>
 <script src="<?php echo base_url(); ?>js/producto.js"></script>

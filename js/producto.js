@@ -1,10 +1,9 @@
 _producto = (function () {
+	var url = location.protocol + "//" + location.host + "/pharmadmin/";
 	var tblProductosActivos = "";
 	var tblProductosInactivos = "";
 
 	var cargarCategorias = function () {
-		let url = location.protocol + "//" + location.host + "/pharmadmin/";
-
 		$.ajax({
 			url: url + "cproducto/cargarCategorias",
 			type: "post",
@@ -32,8 +31,6 @@ _producto = (function () {
 	};
 
 	var registrarProducto = function () {
-		let url = location.protocol + "//" + location.host + "/pharmadmin/";
-
 		var formulario = $("#formProducto").serialize();
 
 		$.ajax({
@@ -42,7 +39,6 @@ _producto = (function () {
 			data: formulario,
 			cache: false,
 			success: function (request, textStatus, jQxhr) {
-				debugger;
 				var data = JSON.parse(request);
 				if (data.status == 200) {
 					$.notify(data.msj, {
@@ -50,7 +46,8 @@ _producto = (function () {
 						globalPosition: "top center",
 						autoHideDelay: 3000,
 					});
-					$("#rol").val("");
+					$("#producto").val("");
+					$("#selCategoria").val("");
 					consultarProductos(true);
 				}
 			},
@@ -60,13 +57,14 @@ _producto = (function () {
 		});
 	};
 
-	function fxProductosActivos(productosActivos, reload) {
+	function fxProductosActivos(productosActivos, reload, url) {
 		if (reload) {
 			tblProductosActivos.fnDestroy();
 		}
 
 		tblProductosActivos = $("#tblProductosActivos").dataTable({
 			pageLength: 5,
+			language: lenguajeDT,
 			data: productosActivos,
 			columns: [
 				{ data: "idproducto" },
@@ -95,17 +93,22 @@ _producto = (function () {
 		}
 		tblProductosInactivos = $("#tblProductosInactivos").dataTable({
 			pageLength: 5,
+			language: lenguajeDT,
 			data: productosInactivos,
 			columns: [
 				{ data: "idproducto" },
 				{ data: "producto" },
-				{ data: "categoria" },
+				{
+					data: productosInactivos,
+					render: function (data, type, row) {
+						return row.idcategoria + "-" + row.categoria;
+					},
+				},
 				{ data: "estado", visible: false },
 				{
 					data: "id",
 					render: function (data) {
-						return `<button type="button" class="btn btn-info btn-edt-producto">Editar</button>
-                        <button type="button" class="btn btn-success btn-desac-producto">Activar</button>`;
+						return `<button type="button" class="btn btn-success btn-desac-producto">Activar</button>`;
 					},
 				},
 			],
@@ -113,8 +116,6 @@ _producto = (function () {
 	}
 
 	var consultarProductos = function (reload) {
-		let url = location.protocol + "//" + location.host + "/pharmadmin/";
-
 		$.ajax({
 			url: url + "cproducto/consultarProductos",
 			type: "post",
@@ -136,10 +137,12 @@ _producto = (function () {
 							conAct = conAct + 1;
 						}
 					});
-					fxProductosActivos(productosActivos, reload);
+
+					fxProductosActivos(productosActivos, reload, url);
 					fxProductosInactivos(productosInactivos, reload);
 				}
 			},
+			complete: function () {},
 			error: function (jqXhr, textStatus, errorThrown) {
 				console.log(errorThrown);
 			},
@@ -147,14 +150,11 @@ _producto = (function () {
 	};
 
 	var actualizarProducto = function () {
-		let url = location.protocol + "//" + location.host + "/pharmadmin/";
 		var parametros = {
 			id: $("#idproducto").val(),
-            producto: $("#producto").val(),
-            idcategoria: $("#selCategoria").val(),
-        };
-        
-        debugger;
+			producto: $("#producto").val(),
+			idcategoria: $("#selCategoria").val(),
+		};
 
 		$.ajax({
 			url: url + "cproducto/actualizarProducto",
@@ -170,6 +170,7 @@ _producto = (function () {
 						autoHideDelay: 3000,
 					});
 					$("#producto").val("");
+					$("#selCategoria").val("");
 					$("#rProducto").show();
 					$("#aProducto").hide();
 					$("#btnGuardarProducto").show();
@@ -185,7 +186,6 @@ _producto = (function () {
 	};
 
 	var cambiarEstadoProducto = function (idrol) {
-		let url = location.protocol + "//" + location.host + "/pharmadmin/";
 		var parametros = {
 			id: idrol,
 		};

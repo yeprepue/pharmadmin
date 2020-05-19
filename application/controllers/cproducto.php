@@ -21,12 +21,18 @@ class Cproducto extends CI_Controller
         }
     }
 
+    public function sppiner()
+    {
+        return json_encode("ok");
+    }
+
     public function actualizarProducto()
     {
         $id = $this->input->post('id');
-        $rol = $this->input->post('rol');
+        $producto = $this->input->post('producto');
+        $idcategoria = $this->input->post('idcategoria');
 
-        $res = $this->mproducto->actualizarProducto($id, $rol);
+        $res = $this->mproducto->actualizarProducto($id, $producto, $idcategoria);
 
         if ($res) {
             echo json_encode(array(
@@ -63,11 +69,7 @@ class Cproducto extends CI_Controller
         $producto = $this->input->post('producto');
         $idcategoria = $this->input->post('selCategoria');
 
-        echo json_encode($producto . "-" . $idcategoria);
-
-        exit;
-
-        $res = $this->mproducto->registrarProducto($producto);
+        $res = $this->mproducto->registrarProducto($producto, $idcategoria);
         if ($res) {
             echo json_encode(array(
                 "status" => 200,
@@ -109,6 +111,4 @@ class Cproducto extends CI_Controller
             ));
         }
     }
-
-    
 }
