@@ -7,7 +7,7 @@
                     <h3 id="actualizarFarmacia" style="display:none">Actualizar farmacia</h3>
                 </div>
                 <div class="card-body">
-                    <form id="formFramacias">
+                    <form id="formFramacia">
                         <div class="form-group">
                             <input type="text" name="farmacia" id="farmacia" class="form-control" placeholder="Ingrese el nombre de la farmacia">
                             <br>                                                        
