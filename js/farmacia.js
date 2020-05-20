@@ -1,18 +1,17 @@
-_categoria = (function() {
-    var tblCategoriasActivas = "";
-    var tblCategoriasInactivas = "";
+_farmacias = (function() {
+    var tblFarmaciasActivas = "";
+    var tblFarmaciasInactivas = "";
 
-    var registrarCategoria = function() {
+    var registrarFarmacias = function() {
         let url = location.protocol + "//" + location.host + "/pharmadmin/";
-        var formulario = $("#formCategoria").serialize();
+        var formulario = $("#formFarmacias").serialize();
 
         $.ajax({
-            url: url + "ccategoria/registrarCategoria",
+            url: url + "cfarmacia/registrarFarmacias",
             type: "post",
             data: formulario,
             cache: false,
             success: function(request, textStatus, jQxhr) {
-                debugger;
                 var data = JSON.parse(request);
                 if (data.status == 200) {
                     $.notify(data.msj, {
@@ -20,87 +19,85 @@ _categoria = (function() {
                         globalPosition: "top center",
                         autoHideDelay: 3000,
                     });
-                    $("#categoria").val("");
-                    $("#descripcion").val("");
-                    consultarCategorias(true);
+                    $("#farmacia").val("");
+                    consultarFarmacias(true);
                 }
             },
             error: function(jqXhr, textStatus, errorThrown) {
-                debugger;
                 console.log(errorThrown);
             },
         });
     };
 
-    function fxcategoriasActivas(categoriasActivas, reload) {
+    function fxfarmaciasActivas(farmaciasActivas, reload) {
         if (reload) {
-            tblCategoriasActivas.fnDestroy();
+            tblFarmaciasActivas.fnDestroy();
         }
-        tblCategoriasActivas = $("#tblCategoriasActivas").dataTable({
+        tblFarmaciasActivas = $("#tblFarmaciasActivas").dataTable({
             pageLength: 5,
             language: lenguajeDT,
-            data: categoriasActivas,
+            data: farmaciasActivas,
             columns: [
                 { data: "id" },
-                { data: "categoria" },
+                { data: "farmacia" },
                 { data: "estado", visible: false },
                 {
                     data: "id",
                     render: function(data) {
-                        return `<button type="button" class="btn btn-info btn-edt-cat">Editar</button>
-                        <button type="button" class="btn btn-danger btn-desac-cat">Desactivar</button>`;
+                        return `<button type="button" class="btn btn-info btn-edt-far">Editar</button>
+                        <button type="button" class="btn btn-danger btn-desac-far">Desactivar</button>`;
                     },
                 },
             ],
         });
     }
 
-    function fxcategoriasInactivas(categoriasInactivas, reload) {
+    function fxfarmaciasInactivas(farmaciasInactivas, reload) {
         if (reload) {
-            tblCategoriasInactivas.fnDestroy();
+            tblFarmaciasInactivas.fnDestroy();
         }
-        tblCategoriasInactivas = $("#tblCategoriasInactivas").dataTable({
+        tblfarmaciasInactivas = $("#tblfarmaciasInactivas").dataTable({
             pageLength: 5,
             language: lenguajeDT,
-            data: categoriasInactivas,
+            data: farmaciasInactivas,
             columns: [
                 { data: "id" },
-                { data: "categoria" },
+                { data: "farmacia" },
                 { data: "estado", visible: false },
                 {
                     data: "id",
                     render: function(data) {
-                        return `<button type="button" class="btn btn-success btn-desac-cat">Activar</button>`;
+                        return `<button type="button" class="btn btn-success btn-desac-far">Activar</button>`;
                     },
                 },
             ],
         });
     }
 
-    var consultarCategorias = function(reload) {
+    var consultarFarmacias = function(reload) {
         let url = location.protocol + "//" + location.host + "/pharmadmin/";
         $.ajax({
-            url: url + "ccategoria/consultarCategorias",
+            url: url + "cfarmacia/consultarFarmacias",
             type: "post",
             cache: false,
             success: function(request, textStatus, jQxhr) {
                 var data = JSON.parse(request);
                 if (data.status == 200) {
-                    var categoriasActivas = Array();
-                    var categoriasInactivas = Array();
+                    var farmaciasActivas = Array();
+                    var farmaciasInactivas = Array();
                     var conAct = 0;
                     var conInac = 0;
                     data.data.forEach(function(element, index) {
                         if (element.estado == 0) {
-                            categoriasInactivas[index - conAct] = element;
+                            farmaciasInactivas[index - conAct] = element;
                             conInac = conInac + 1;
                         } else {
-                            categoriasActivas[index - conInac] = element;
+                            farmaciasActivas[index - conInac] = element;
                             conAct = conAct + 1;
                         }
                     });
-                    fxcategoriasActivas(categoriasActivas, reload);
-                    fxcategoriasInactivas(categoriasInactivas, reload);
+                    fxfarmaciasActivas(farmaciasActivas, reload);
+                    fxfarmaciasInactivas(farmaciasInactivas, reload);
                 }
             },
             error: function(jqXhr, textStatus, errorThrown) {
@@ -109,16 +106,15 @@ _categoria = (function() {
         });
     };
 
-    var actualizarCategoria = function() {
+
+    var actualizarfarmacia = function() {
         let url = location.protocol + "//" + location.host + "/pharmadmin/";
         var parametros = {
-            //Acá había una error
-            id: $("#idcategoria").val(),
-            categoria: $("#categoria").val(),
+            id: $("#idfarmacia").val(),
+            farmacia: $("#farmacia").val(),
         };
-
         $.ajax({
-            url: url + "ccategoria/actualizarCategoria",
+            url: url + "cfarmacia/actualizarfarmacia",
             type: "post",
             data: parametros,
             cache: false,
@@ -130,15 +126,13 @@ _categoria = (function() {
                         globalPosition: "top center",
                         autoHideDelay: 3000,
                     });
-                    $("#categoria").val("");
-                    $("#descripcion").val("");
-                    $("#registrarCategoria").show();
-                    $("#actualizarCategoria").hide();
-                    $("#btnGuardarCategoria").hide();
-                    $("#btnActualizarCategoria").show();
-                    //Acá había una error
-                    $("#idcategoria").val("");
-                    consultarCategorias(true);
+                    $("#farmacia").val("");
+                    $("#registrarFarmacia").show();
+                    $("#actualizarFarmacia").hide();
+                    $("#btnGuardarFarmacia").hide();
+                    $("#btnActualizarFarmacia").show();
+                    $("#idFarmacia").val("");
+                    consultarFarmacias(true);
                 }
             },
             error: function(jqXhr, textStatus, errorThrown) {
@@ -147,13 +141,13 @@ _categoria = (function() {
         });
     };
 
-    var cambiarEstadoCategoria = function(id) {
+    var cambiarEstadoFarmacia = function(id) {
         let url = location.protocol + "//" + location.host + "/pharmadmin/";
         var parametros = {
             id: id,
         };
         $.ajax({
-            url: url + "ccategoria/cambiarEstadoCategoria",
+            url: url + "cfarmacia/cambiarEstadoFarmacia",
             type: "post",
             data: parametros,
             cache: false,
@@ -165,7 +159,7 @@ _categoria = (function() {
                         globalPosition: "top center",
                         autoHideDelay: 3000,
                     });
-                    consultarCategorias(true);
+                    consultarFarmacias(true);
                 }
             },
             error: function(jqXhr, textStatus, errorThrown) {
@@ -174,43 +168,43 @@ _categoria = (function() {
         });
     };
     return {
-        registrarCategoria: registrarCategoria,
-        consultarCategorias: consultarCategorias,
-        actualizarCategoria: actualizarCategoria,
-        cambiarEstadoCategoria: cambiarEstadoCategoria,
+        registrarFarmacia: registrarFarmacia,
+        consultarFarmacias: consultarFarmacias,
+        actualizarFarmacia: actualizarFarmacia,
+        cambiarEstadoFarmacia: cambiarEstadoFarmacia,
     };
 })();
 
-$("#btnGuardarCategoria")
+$("#btnGuardarFarmacia")
     .off("click")
     .on("click", function() {
-        if ($("#categoria").val() == "") {
-            $("#divmsj-categoria").show();
+        if ($("#farmacia").val() == "") {
+            $("#divmsj-farmacia").show();
             setTimeout(() => {
-                $("#divmsj-categoria").hide();
+                $("#divmsj-farmacia").hide();
             }, 3000);
         } else {
-            _categoria.registrarCategoria();
+            _farmacia.registrarFarmacia;
         }
     });
-$("#btnActualizarCategoria")
+$("#btnActualizarFarmacia")
     .off("click")
     .on("click", function() {
-        if ($("#categoria").val() == "") {
-            $("#divmsj-categoria").show();
+        if ($("#farmacia").val() == "") {
+            $("#divmsj-farmacia").show();
             setTimeout(() => {
-                $("#divmsj-categoria").hide();
+                $("#divmsj-farmacia").hide();
             }, 3000);
         } else {
-            _categoria.actualizarCategoria();
+            _farmacia.actualizarFarmacia();
         }
     });
 $(document).ready(function() {
-    _categoria.consultarCategorias(false);
+    _farmacia.consultarFarmacias(false);
 });
 $(document)
-    .off("click", ".btn-edt-cat")
-    .on("click", ".btn-edt-cat", function() {
+    .off("click", ".btn-edt-far")
+    .on("click", ".btn-edt-far", function() {
         var info = Array();
         $(this)
             .parents("tr")
@@ -218,19 +212,18 @@ $(document)
             .each(function(index) {
                 info[index] = $(this).html();
             });
-        $("#registrarCategoria").hide();
-        $("#actualizarCategoria").show();
-        $("#btnGuardarCategoria").hide();
-        $("#btnActualizarCategoria").show();
-        $("#categoria").val(info[1]);
-        //Acá había una error
-        $("#idcategoria").val(info[0]);
-        $("#categoria").focus();
+        $("#registrarFarmacia").hide();
+        $("#actualizarFarmacia").show();
+        $("#btnGuardarFarmacia").hide();
+        $("#btnActualizarFarmacia").show();
+        $("#farmacia").val(info[1]);
+        $("#idfarmacia").val(info[0]);
+        $("#farmacia").focus();
     });
 
 $(document)
-    .off("click", ".btn-desac-cat")
-    .on("click", ".btn-desac-cat", function() {
+    .off("click", ".btn-desac-far")
+    .on("click", ".btn-desac-far", function() {
         var info = Array();
         $(this)
             .parents("tr")
@@ -238,5 +231,5 @@ $(document)
             .each(function(index) {
                 info[index] = $(this).html();
             });
-        _categoria.cambiarEstadoCategoria(info[0]);
+        _farmacia.cambiarEstadoFarmacia(info[0]);
     });
