@@ -46,7 +46,22 @@ class Mpersona extends CI_Model
 
         if ($res->num_rows() > 0) {
             return $res->row();
-        }else{
+        } else {
+            return false;
+        }
+    }
+    public function obtenerPermisos($idrol)
+    {
+        $this->db->select('permisos_id');
+        $this->db->from('rolespermisos');
+        $this->db->where('roles_id', $idrol);
+        $this->db->where('estado', 1);
+
+        $res = $this->db->get();
+
+        if ($res->num_rows() > 0) {
+            return $res->result();
+        } else {
             return false;
         }
     }

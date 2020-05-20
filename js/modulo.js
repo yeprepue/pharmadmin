@@ -1,38 +1,38 @@
 _modulos = (function () {
 	var url = location.protocol + "//" + location.host + "/pharmadmin/";
 
-	var construirModulos = function (datos) {
-		var tamano = datos.length - 1;
-		var cont = 1;
-		datos.forEach(function (element, index) {
-			if (tamano == index) {
-				cont = -index;
-			}
-			if (datos[index + cont].idmodulo == element.idmodulo) {
-			} else {
-				$("#modulo-item").append(
-					`<li class="nav-item" id="modulo` +
-						element.idmodulo +
-						`">
+	var construirModulos = function (modulos, submodulos) {
+		var hash = {};
+		//Eliminamos duplicados
+		modulos = modulos.filter(function (modulo) {
+			var exists = !hash[modulo.idmodulo];
+			hash[modulo.idmodulo] = true;
+			return exists;
+		});
+
+		modulos.forEach(function (element, index) {
+			$("#modulo-item").append(
+				`<li class="nav-item" id="modulo` +
+					element.idmodulo +
+					`">
 						<a href="` +
-						url +
-						element.menlace +
-						`" class="nav-link">
+					url +
+					element.menlace +
+					`" class="nav-link">
 										` +
-						element.micono +
-						`
+					element.micono +
+					`
 							<p>
 												` +
-						element.modulo +
-						`
+					element.modulo +
+					`
 							</p>
 						</a>
 					</li>
 								`
-				);
-			}
+			);
 		});
-		datos.forEach(function (element, subindex) {
+		submodulos.forEach(function (element, subindex) {
 			if (element.modulos_id !== null) {
 				$("#modulo" + element.modulos_id + " p i").remove();
 
@@ -42,6 +42,7 @@ _modulos = (function () {
 						`">
 									<li class="nav-item">
 										<a href="` +
+						url +
 						element.smenlace +
 						`" class="nav-link">
 												` +
@@ -65,6 +66,39 @@ _modulos = (function () {
 		});
 	};
 
+	var modulos_Submodulos = function (datos) {
+		var modulos = Array();
+		var submodulos = Array();
+		var contsub = 0;
+		datos.forEach(function (element, index) {
+			modulos[index] = {
+				idmodulo: element.idmodulo,
+				modulo: element.modulo,
+				menlace: element.menlace,
+				micono: element.micono,
+				mestado: element.mestado,
+			};
+			if (element.modulos_id !== null) {
+				submodulos[contsub] = {
+					idsubmodulo: element.idsubmodulo,
+					submodulo: element.submodulo,
+					smenlace: element.smenlace,
+					smicono: element.smicono,
+					smestado: element.smestado,
+					modulos_id: element.modulos_id,
+				};
+				contsub = contsub + 1;
+			}
+		});
+
+		info = {
+			modulos: modulos,
+			submodulos: submodulos,
+		};
+
+		return info;
+	};
+
 	var consultarModulos = function (reload) {
 		$.ajax({
 			url: url + "cmodulo/consultarModulos",
@@ -72,12 +106,14 @@ _modulos = (function () {
 			cache: false,
 			success: function (request, textStatus, jQxhr) {
 				var data = JSON.parse(request);
+
 				if (data.status == 200) {
-					construirModulos(data.data);
+					debugger;
+					var infoMS = modulos_Submodulos(data.data);
+					construirModulos(infoMS.modulos, infoMS.submodulos);
 				}
 			},
 			error: function (jqXhr, textStatus, errorThrown) {
-				debugger;
 				console.log(errorThrown);
 			},
 		});

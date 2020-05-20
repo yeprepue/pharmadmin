@@ -60,7 +60,11 @@ class Cpersona extends CI_Controller
         if ($this->session->userdata('sUsuario')) {
             $this->load->view('plantilla/cabecera');
             $this->load->view('plantilla/menu');
-            $this->load->view('vinicio');
+            if ($this->session->userdata('sRol') == 1) {
+                $this->load->view('vinicio');
+            } else if ($this->session->userdata('sRol') == 2) {
+                $this->load->view('vinicio2');
+            }
             $this->load->view('plantilla/pie');
         } else {
             $this->load->view('personas/vingreso');
@@ -75,7 +79,14 @@ class Cpersona extends CI_Controller
         $res = $this->mpersona->iniciarSesion($usuario, $clave);
 
         if ($res) {
-            $this->crearSesion($res);
+            $tmpPermisos = "";
+            $permisos = $this->mpersona->obtenerPermisos($res->roles_id);
+
+            for ($i = 0; $i < count($permisos); $i++) {
+                $tmpPermisos .= $permisos[$i]->permisos_id . ",";
+            }
+
+            $this->crearSesion($res, $tmpPermisos);
             echo json_encode(array(
                 "status" => 200,
                 "data" => $res
@@ -93,19 +104,21 @@ class Cpersona extends CI_Controller
             'sIdusuario' => false,
             'sUsuario' => false,
             'sNombre' => false,
-            'sRol' => false
+            'sRol' => false,
+            'sPermisos' => false
         );
         $this->session->set_userdata($usuarioSession);
         $this->load->view('personas/vingreso');
     }
 
-    function crearSesion($res)
+    function crearSesion($res, $permisos)
     {
         $usuarioSession = array(
             'sIdusuario' => $res->id,
             'sUsuario' => $res->usuario,
             'sNombre' => $res->nombres,
-            'sRol' => $res->roles_id
+            'sRol' => $res->roles_id,
+            'sPermisos' => $permisos
         );
         $this->session->set_userdata($usuarioSession);
     }

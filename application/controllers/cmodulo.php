@@ -11,7 +11,12 @@ class Cmodulo extends CI_Controller
 
     public function consultarModulos()
     {
-        $res = $this->mmodulo->consultarModulos();
+        //Eliminamos espacios y comas.
+        $permisos = trim($this->session->userdata('sPermisos'), ',');
+        //Convertimos el arreglo a enteros
+        $permisos = array_map('intval', explode(',', $permisos));
+
+        $res = $this->mmodulo->consultarModulos($permisos);
         if ($res) {
             echo json_encode(array(
                 "status" => 200,

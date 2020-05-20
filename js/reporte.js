@@ -9,6 +9,7 @@ _reporte = (function () {
 
 		tblReporteFacturas = $("#tblReporteFacturas").dataTable({
 			pageLength: 8,
+			language: lenguajeDT,
 			select: true,
 			data: facturas,
 			columns: [
@@ -26,6 +27,7 @@ _reporte = (function () {
 
 		tblReportePedidos = $("#tblReportePedidos").dataTable({
 			pageLength: 8,
+			language: lenguajeDT,
 			select: true,
 			data: pedidos,
 			columns: [
