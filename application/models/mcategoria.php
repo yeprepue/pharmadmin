@@ -20,6 +20,7 @@ class Mcategoria extends CI_Model
         }
         return false;
     }
+    
     public function actualizarCategoria($id, $categoria)
     {
         $datos = array(
